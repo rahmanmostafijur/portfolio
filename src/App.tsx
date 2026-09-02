@@ -1,18 +1,35 @@
 import { useEffect } from 'react';
-import Particles from './components/Particles';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Education from './components/Education';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ProjectsPage from './pages/ProjectsPage';
+import ProjectDetailPage from './pages/ProjectDetailPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
-  // Global scroll reveal observer
+  const location = useLocation();
+
+  // Scroll to top on route change, unless navigating to an in-page hash anchor
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  // Scroll to a hash target once its section has mounted for this route
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  }, [location.pathname, location.hash]);
+
+  // Global scroll reveal observer — re-runs whenever the route changes
   useEffect(() => {
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -23,28 +40,29 @@ function App() {
           }
         });
       },
-      { threshold: 0.15 } 
+      { threshold: 0.15 }
     );
 
     const elementsToReveal = document.querySelectorAll('.reveal, .reveal-stagger');
     elementsToReveal.forEach(el => revealObserver.observe(el));
 
     return () => revealObserver.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
       <CustomCursor />
-      <Particles />
       <Navbar />
       <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Education />
-        <Projects />
-        <Skills />
-        <Contact />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
       </main>
       <Footer />
     </>
