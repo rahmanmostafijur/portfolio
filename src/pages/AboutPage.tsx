@@ -1,17 +1,17 @@
 import About from '../components/About';
-import Experience from '../components/Experience';
-import Education from '../components/Education';
+import CoreExpertise from '../components/CoreExpertise';
 import TechStack from '../components/TechStack';
-import Skills from '../components/Skills';
+import TerminalQuote from '../components/TerminalQuote';
+import ProfileBlock from '../components/ProfileBlock';
 
 export default function AboutPage() {
   return (
     <>
       <About />
-      <Experience />
-      <Education />
+      <CoreExpertise />
       <TechStack />
-      <Skills />
+      <TerminalQuote />
+      <ProfileBlock />
     </>
   );
 }

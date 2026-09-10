@@ -1,4 +1,6 @@
-const timeline = [
+import Timeline, { type TimelineItem } from './Timeline';
+
+const items: TimelineItem[] = [
   {
     role: 'Software Engineer',
     org: 'Acciptra — Dhaka, Bangladesh (Hybrid)',
@@ -14,36 +16,5 @@ const timeline = [
 ];
 
 export default function Experience() {
-  return (
-    <section id="experience" aria-label="Experience">
-      <p className="section-label">Experience →</p>
-      <h2 className="timeline-heading reveal">experience</h2>
-
-      <div className="timeline-rows reveal-stagger">
-        {timeline.map((item) => (
-          <div className="timeline-row" key={item.role}>
-            <div className="timeline-role">
-              <h3>{item.role}</h3>
-              <span className="timeline-org">{item.org}</span>
-            </div>
-            <div className="timeline-date">{item.date}</div>
-            <div className="timeline-detail">
-              <ul className="timeline-bullets">
-                {item.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-              {item.tags && (
-                <div className="exp-tags">
-                  {item.tags.map((tag) => (
-                    <span className="exp-tag" key={tag}>{tag}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+  return <Timeline eyebrow="Experience" title="Where I've Worked" items={items} />;
 }
