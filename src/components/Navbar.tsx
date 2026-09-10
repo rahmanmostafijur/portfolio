@@ -74,8 +74,8 @@ export default function Navbar() {
               className="relative hidden h-6 w-11 shrink-0 rounded-full border border-chalk-faint/40 bg-ink-600 transition-colors duration-300 sm:block"
             >
               <span
-                className={`absolute top-0.5 size-4 rounded-full bg-chalk transition-transform duration-300 ${
-                  isLight ? 'translate-x-[22px]' : 'translate-x-0.5'
+                className={`absolute left-0.5 top-0.5 size-4 rounded-full bg-chalk transition-transform duration-300 ${
+                  isLight ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />
             </button>

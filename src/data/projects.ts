@@ -2,7 +2,7 @@ export interface Project {
   slug: string;
   title: string;
   subtitle: string;
-  year: string;
+  year?: string;
   tools: string[];
   overview: string;
   features: string[];
@@ -47,7 +47,16 @@ export const projects: Project[] = [
   {
     slug: 'japan-hands',
     title: 'Japan Hands',
-    subtitle: 'Coming Soon',
+    subtitle: 'E-Commerce Platform',
+    tools: [],
+    overview:
+      'An e-commerce platform for buying manga-related accessories, built as a sister concern of mangafam.com. I built the full stack, frontend through backend.',
+    features: [],
+  },
+  {
+    slug: 'sanket',
+    title: 'Sanket',
+    subtitle: 'In Progress',
     year: 'Upcoming',
     tools: [],
     overview: 'Details coming soon.',

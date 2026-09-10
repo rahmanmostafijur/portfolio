@@ -43,7 +43,8 @@ export default function ProjectDetailPage() {
         </Link>
 
         <p className="mt-8 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-amber-brand">
-          {project.subtitle} · {project.year}
+          {project.subtitle}
+          {project.year && ` · ${project.year}`}
         </p>
 
         <h1 className="mt-3 max-w-[18ch] font-display text-[clamp(2rem,5.5vw,3.5rem)] font-bold uppercase leading-[1] tracking-[-0.045em] text-chalk">
@@ -84,7 +85,7 @@ export default function ProjectDetailPage() {
         transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         className="mt-14 grid gap-10 md:grid-cols-[240px_minmax(0,1fr)]"
       >
-        <div>
+        <div className={project.tools.length === 0 ? 'hidden' : undefined}>
           <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-chalk-faint">
             Built with
           </p>
@@ -100,7 +101,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <div>
+        <div className={project.features.length === 0 ? 'hidden' : undefined}>
           <p className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-chalk-faint">
             Highlights
           </p>
