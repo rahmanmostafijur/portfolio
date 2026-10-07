@@ -52,7 +52,9 @@ export interface Project {
   label?: string;
   description: string;
   tech: string[];
-  image?: { src: string; alt: string; width: number; height: number };
+  image?: { src: string; srcSet: string; alt: string; width: number; height: number };
+  /** Icon on the gradient placeholder shown when there is no screenshot */
+  placeholderIcon: 'wind' | 'shopping-bag' | 'list-checks';
   githubUrl?: string;
   liveUrl?: string;
 }
@@ -198,24 +200,32 @@ export const services: Service[] = [
 
 export const projects: Project[] = [
   {
-    slug: 'air-pollution-monitoring-forecasting',
-    title: 'Air Pollution Monitoring & Forecasting',
-    description:
-      'Tracks real-time air quality data and predicts future pollution levels from multi-source environmental data.',
-    tech: ['Python', 'FastAPI', 'React', 'Next.js'],
-    // TODO(content): project screenshot
-    githubUrl: 'https://github.com/mustafiz-emon/Air-Polltion-Monitoring-and-Forecasting',
-    // TODO(content): live demo URL
-  },
-  {
     slug: 'task-manager',
     title: 'Task Manager',
     description:
       'A multi-user task management application where users register, log in, and manage their own tasks — each user can only see and modify the tasks they own.',
     tech: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'Alembic', 'Docker'],
-    // TODO(content): project screenshot
+    image: {
+      src: '/images/projects/task-manager-960.webp',
+      srcSet:
+        '/images/projects/task-manager-640.webp 640w, /images/projects/task-manager-960.webp 960w',
+      alt: 'Task Manager sign-in screen',
+      width: 960,
+      height: 600,
+    },
+    placeholderIcon: 'list-checks',
     githubUrl: 'https://github.com/rahmanmostafijur/taskmanager',
     liveUrl: 'https://taskmanagerforyou.vercel.app',
+  },
+  {
+    slug: 'air-pollution-monitoring-forecasting',
+    title: 'Air Pollution Monitoring & Forecasting',
+    description:
+      'Tracks real-time air quality data and predicts future pollution levels from multi-source environmental data.',
+    tech: ['Python', 'FastAPI', 'React', 'Next.js'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
+    placeholderIcon: 'wind',
+    githubUrl: 'https://github.com/mustafiz-emon/Air-Polltion-Monitoring-and-Forecasting',
   },
   {
     slug: 'japan-hands',
@@ -223,9 +233,9 @@ export const projects: Project[] = [
     label: 'Company project — Acciptra',
     description:
       'An e-commerce platform for buying manga-related accessories, built as a sister concern of mangafam.com.',
-    // TODO(content): tech stack
+    // TODO(content): tech stack (tags are hidden while this is empty)
     tech: [],
-    // TODO(content): project screenshot
+    placeholderIcon: 'shopping-bag',
   },
 ];
 
