@@ -287,6 +287,7 @@ export const projects: Project[] = [
     description:
       'Job-market intelligence service — scheduled ingestion, LLM extraction into Pydantic schemas and hybrid pgvector search.',
     tech: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'Redis', 'LLM'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
     placeholderIcon: 'radar',
     status: { label: 'In progress', tone: 'progress' },
     githubUrl: 'https://github.com/rahmanmostafijur/Sanket',
@@ -318,6 +319,7 @@ export const projects: Project[] = [
     description:
       'Personal video downloader for YouTube, Facebook, TikTok, X and Instagram — FastAPI + yt-dlp behind a browser UI, packaged as a single Windows .exe and an Android build.',
     tech: ['Python', 'FastAPI', 'yt-dlp', 'Kotlin', 'Android'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
     placeholderIcon: 'download',
     status: { label: 'Personal tool', tone: 'neutral' },
     githubUrl: 'https://github.com/rahmanmostafijur/namao-downloader',
