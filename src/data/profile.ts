@@ -124,6 +124,32 @@ export const idCardFields: IdCardField[] = [
   { label: 'Status', value: 'Active', isStatus: true },
 ];
 
+export interface SectionHeading {
+  title: string;
+  accent: string;
+  subtitle?: string;
+}
+
+export const headings = {
+  services: {
+    title: 'What I',
+    accent: 'Do',
+    subtitle: 'Full-stack web development and applied machine learning.',
+  },
+  projects: {
+    title: 'Selected',
+    accent: 'Works',
+    subtitle: 'Personal projects and company work.',
+  },
+  career: { title: 'Career', accent: 'Journey' },
+  education: { title: 'Academic', accent: 'Background' },
+  skills: {
+    title: 'Technical',
+    accent: 'Arsenal',
+    subtitle: 'Languages, frameworks and tools I use, grouped by area.',
+  },
+} satisfies Record<string, SectionHeading>;
+
 export const about = {
   headingLead: 'I treat software',
   headingAccent: 'as a craft',
