@@ -1,4 +1,4 @@
-import { contact, profile } from '@/data/profile';
+import { profile } from '@/data/profile';
 
 export interface ContactValues {
   name: string;
@@ -11,10 +11,8 @@ export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_MESSAGE_LENGTH = 10;
 const MAX_FIELD_LENGTH = { name: 100, email: 254, message: 5000 } as const;
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const CONTACT_ENDPOINT = '/api/contact';
 const REQUEST_TIMEOUT_MS = 15000;
-
-export const hasFormService = contact.web3formsAccessKey.trim().length > 0;
 
 export function validateContact(values: ContactValues): ContactErrors {
   const errors: ContactErrors = {};
@@ -37,26 +35,23 @@ export function validateContact(values: ContactValues): ContactErrors {
   return errors;
 }
 
-/** Pre-filled mailto link: the fallback when no form service is configured or sending fails. */
+/** Pre-filled mailto link: the fallback when sending fails. */
 export function buildMailtoLink(values: ContactValues): string {
   const subject = `Portfolio message from ${values.name.trim()}`;
   const body = `${values.message.trim()}\n\n— ${values.name.trim()} (${values.email.trim()})`;
   return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-/** Sends the message through Web3Forms. Throws an Error with a user-facing message on failure. */
+/** Sends the message through the SMTP function at /api/contact. Throws an Error with a user-facing message on failure. */
 export async function sendContactMessage(values: ContactValues): Promise<void> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(WEB3FORMS_ENDPOINT, {
+    const response = await fetch(CONTACT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        access_key: contact.web3formsAccessKey,
-        subject: `Portfolio message from ${values.name.trim()}`,
-        from_name: values.name.trim(),
         name: values.name.trim(),
         email: values.email.trim(),
         message: values.message.trim(),

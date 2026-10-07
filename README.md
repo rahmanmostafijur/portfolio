@@ -17,7 +17,7 @@ The site is a single page with sections for About, What I Do, Selected Works, Ca
 | UI components | [Lightswind UI](https://lightswind.com) (MIT), copied into `src/components/lightswind/` and adapted |
 | Icons | lucide-react, plus tech logos from [simple-icons](https://simpleicons.org) (CC0) |
 | Font | [Geist](https://github.com/vercel/geist-font) (SIL OFL 1.1), self-hosted |
-| Contact form | [Web3Forms](https://web3forms.com), with a mailto fallback |
+| Contact form | Vercel serverless function (`api/contact.ts`) sending through SMTP with nodemailer, with a mailto fallback |
 | Hosting | Vercel |
 
 ## Features
@@ -50,6 +50,7 @@ public/
   tech/                   Tech logo SVGs
   fonts/                  Geist font file and licence
   Mostafijur_Rahman_CV.pdf
+api/contact.ts            Serverless function that emails contact-form messages over SMTP
 vercel.json               Redirects for old URLs and the single-page-app rewrite
 ```
 
@@ -57,7 +58,19 @@ vercel.json               Redirects for old URLs and the single-page-app rewrite
 
 Almost everything you see is in `src/data/profile.ts`: name, tagline, About text, services, projects, career, education, skills and section headings. Blog posts live in `src/data/blog.ts`.
 
-To turn on direct sending for the contact form, set `web3formsAccessKey` in `src/data/profile.ts` to your Web3Forms access key. The key is public by design. Until it is set, the form opens the visitor's email app with the message filled in.
+## Contact form (SMTP)
+
+The form posts to `/api/contact`, a Vercel function that sends the message to your inbox over SMTP. The visitor's address is set as Reply-To, so you can answer with a normal reply. Set these environment variables in Vercel (Project Settings → Environment Variables), then redeploy:
+
+| Variable | Example | Notes |
+| --- | --- | --- |
+| `SMTP_HOST` | `smtp.gmail.com` | Your provider's SMTP server |
+| `SMTP_PORT` | `465` | 465 uses TLS; 587 uses STARTTLS |
+| `SMTP_USER` | `you@gmail.com` | Also used as the From address |
+| `SMTP_PASS` | App Password | For Gmail, turn on 2-Step Verification and create an [App Password](https://myaccount.google.com/apppasswords) |
+| `CONTACT_TO_EMAIL` | `you@gmail.com` | Optional. Defaults to `SMTP_USER` |
+
+See `.env.example`. If sending fails, the form shows an error with a link that opens the visitor's email app with the message filled in. `npm run dev` doesn't run the function; use `npx vercel dev` to test the form locally.
 
 ## Running locally
 

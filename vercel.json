@@ -9,5 +9,5 @@
     { "source": "/contact", "destination": "/#contact", "permanent": false },
     { "source": "/publications", "destination": "/", "permanent": false }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
 }

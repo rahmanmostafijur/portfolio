@@ -378,8 +378,6 @@ export const skillGroups: SkillGroup[] = [
 export const contact = {
   intro:
     'Open to remote roles and collaborations. Send a message through the form or email me directly.',
-  // TODO(content): Web3Forms access key (public by design, not a secret)
-  web3formsAccessKey: '',
 };
 
 export const seo = {

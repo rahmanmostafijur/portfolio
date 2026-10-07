@@ -1,9 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { CheckCircle2, Loader2, Send, TriangleAlert } from 'lucide-react';
-import { profile } from '@/data/profile';
 import {
   buildMailtoLink,
-  hasFormService,
   sendContactMessage,
   validateContact,
   type ContactErrors,
@@ -15,7 +13,6 @@ type Status =
   | { kind: 'idle' }
   | { kind: 'submitting' }
   | { kind: 'success' }
-  | { kind: 'mailto' }
   | { kind: 'error'; message: string; mailto: string };
 
 const FIELDS: {
@@ -45,17 +42,6 @@ function StatusMessage({ status }: { status: Status }) {
       <p className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
         <CheckCircle2 aria-hidden className="size-4 shrink-0" />
         Thanks — your message was sent. I&apos;ll get back to you soon.
-      </p>
-    );
-  }
-  if (status.kind === 'mailto') {
-    return (
-      <p className="text-muted-foreground">
-        Your email app should open with the message filled in. If it doesn&apos;t, email me at{' '}
-        <a href={`mailto:${profile.email}`} className="font-semibold text-foreground underline">
-          {profile.email}
-        </a>
-        .
       </p>
     );
   }
@@ -96,13 +82,6 @@ export default function ContactForm() {
     const firstInvalid = FIELDS.find((field) => nextErrors[field.name]);
     if (firstInvalid) {
       form.querySelector<HTMLElement>(`[name="${firstInvalid.name}"]`)?.focus();
-      return;
-    }
-
-    // No form service configured yet: hand off to the visitor's email app
-    if (!hasFormService) {
-      window.location.href = buildMailtoLink(values);
-      setStatus({ kind: 'mailto' });
       return;
     }
 
