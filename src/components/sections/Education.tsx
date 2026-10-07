@@ -30,7 +30,7 @@ export default function Education() {
           return (
             <li key={item.degree}>
               <Reveal delay={i * 0.08} className="h-full">
-                <article className="group h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+                <article className="group h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
                   <div className="mb-6 flex items-start justify-between gap-4">
                     <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-sm">
                       <Icon aria-hidden className="size-7" />

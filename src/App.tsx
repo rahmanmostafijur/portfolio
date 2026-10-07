@@ -1,12 +1,15 @@
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollManager from '@/components/layout/ScrollManager';
 import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
-import DockNav from '@/components/layout/DockNav';
 import HomePage from '@/pages/HomePage';
 import BlogPage from '@/pages/BlogPage';
 import BlogPostPage from '@/pages/BlogPostPage';
 import NotFoundPage from '@/pages/NotFoundPage';
+
+// The dock pulls in framer-motion, so it loads after the first paint
+const DockNav = lazy(() => import('@/components/layout/DockNav'));
 
 // Old multi-page URLs now point at sections of the single page (mirrors vercel.json redirects)
 const legacyRedirects: { path: string; to: string }[] = [
@@ -42,7 +45,9 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-      <DockNav />
+      <Suspense fallback={null}>
+        <DockNav />
+      </Suspense>
     </>
   );
 }

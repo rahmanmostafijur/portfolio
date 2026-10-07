@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useReducedMotion } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 /** Scrolls to the URL hash target (e.g. after a legacy-route redirect), or to the top on a page change. */
 export default function ScrollManager() {
   const { pathname, hash } = useLocation();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (!hash) {

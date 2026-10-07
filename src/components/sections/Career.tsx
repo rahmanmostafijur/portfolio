@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { Briefcase } from 'lucide-react';
 import { career, headings } from '@/data/profile';
 import { cn } from '@/lib/utils';
@@ -10,15 +10,39 @@ const LINE_X = 'left-5 lg:left-1/2';
 
 export default function Career() {
   const timelineRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ['start 70%', 'end 50%'],
-  });
-  const dotTop = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
+
+  // Progress runs from the timeline top reaching 70% of the viewport to its bottom reaching 50%
+  useEffect(() => {
+    if (reduceMotion) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const el = timelineRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (0.7 * vh - rect.top) / (rect.height + 0.2 * vh)));
+      if (progressRef.current) progressRef.current.style.transform = `scaleY(${progress})`;
+      if (dotRef.current) dotRef.current.style.top = `${progress * 100}%`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [reduceMotion]);
 
   return (
-    <section id="career" aria-labelledby="career-heading" className="relative w-full overflow-hidden">
+    <section id="career" aria-labelledby="career-heading" className="defer-render relative w-full overflow-hidden">
       <Reveal className="px-6 py-16 text-center">
         <h2 id="career-heading" className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
           {headings.career.title} {headings.career.accent}
@@ -30,21 +54,21 @@ export default function Career() {
         <div aria-hidden className={cn('absolute top-0 z-10 h-full w-[3px] -translate-x-1/2 bg-primary/20', LINE_X)} />
         {!reduceMotion && (
           <>
-            <motion.div
+            <div
+              ref={progressRef}
               aria-hidden
               className={cn(
-                'absolute top-0 z-10 h-full w-[3px] origin-top -translate-x-1/2 bg-linear-to-b from-purple-600 via-brand to-sky-400',
+                'absolute top-0 z-10 h-full w-[3px] origin-top -translate-x-1/2 scale-y-0 bg-linear-to-b from-purple-600 via-brand to-sky-400',
                 LINE_X,
               )}
-              style={{ scaleY: scrollYProgress }}
             />
-            <motion.div
+            <div
+              ref={dotRef}
               aria-hidden
-              className={cn('absolute z-20 -translate-x-1/2 -translate-y-1/2', LINE_X)}
-              style={{ top: dotTop }}
+              className={cn('absolute top-0 z-20 -translate-x-1/2 -translate-y-1/2', LINE_X)}
             >
               <div className="size-5 rounded-full border-2 border-white bg-brand shadow-[0_0_20px_8px_rgba(139,92,246,0.45)]" />
-            </motion.div>
+            </div>
           </>
         )}
 

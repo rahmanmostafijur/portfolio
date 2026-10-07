@@ -42,7 +42,7 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('mx-auto w-full max-w-7xl px-6 py-24', className)}
+      className={cn('defer-render mx-auto w-full max-w-7xl px-6 py-24', className)}
     >
       {title && (
         <Reveal className={cn('mb-12 md:mb-16', alignClass[align])}>

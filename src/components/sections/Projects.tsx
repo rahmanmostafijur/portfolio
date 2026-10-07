@@ -84,7 +84,7 @@ function ProjectMedia({ project, index }: { project: Project; index: number }) {
       )}
     >
       <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:14px_14px] opacity-10" />
-      <span className="absolute top-6 right-6 flex size-16 items-center justify-center rounded-3xl border border-white/25 bg-white/10 text-white backdrop-blur-md sm:top-8 sm:right-8">
+      <span className="absolute top-6 right-6 flex size-16 items-center justify-center rounded-3xl border border-white/25 bg-white/10 text-white sm:top-8 sm:right-8">
         <Icon className="size-8" />
       </span>
     </div>
@@ -92,7 +92,7 @@ function ProjectMedia({ project, index }: { project: Project; index: number }) {
 }
 
 const roundLink =
-  'flex size-12 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-md transition-colors hover:bg-white hover:text-black';
+  'flex size-12 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition-colors hover:bg-white hover:text-black';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
@@ -108,13 +108,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {(project.label || project.status) && (
               <div className="mb-3 flex flex-wrap gap-2">
                 {project.status && (
-                  <p className="flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                  <p className="flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold text-white">
                     <span aria-hidden className={cn('size-1.5 rounded-full', STATUS_DOT[project.status.tone])} />
                     {project.status.label}
                   </p>
                 )}
                 {project.label && (
-                  <p className="w-fit rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                  <p className="w-fit rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold text-white">
                     {project.label}
                   </p>
                 )}
@@ -129,7 +129,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 {project.tech.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white backdrop-blur-md"
+                    className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white"
                   >
                     {tech}
                   </li>

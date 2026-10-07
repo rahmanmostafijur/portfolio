@@ -19,7 +19,7 @@ export default function Services() {
           return (
             <li key={service.title}>
               <Reveal delay={i * 0.08} className="h-full">
-                <article className="group h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+                <article className="group h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
                   <span className="mb-6 flex size-14 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-sm transition-transform duration-300 group-hover:scale-110">
                     <Icon aria-hidden className="size-7" />
                   </span>

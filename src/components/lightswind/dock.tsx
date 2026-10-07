@@ -128,7 +128,7 @@ export default function Dock({
           if (canMagnify && event.pointerType === "mouse") mouseX.set(event.clientX);
         }}
         onPointerLeave={() => mouseX.set(Number.POSITIVE_INFINITY)}
-        className="glass-panel pointer-events-auto flex items-end gap-1 rounded-[1.75rem] p-2 shadow-xl sm:gap-2"
+        className="glass-panel glass-blur pointer-events-auto flex items-end gap-1 rounded-[1.75rem] p-2 shadow-xl sm:gap-2"
         style={{ height: baseItemSize + 18 }}
       >
         {items.map((item) => (

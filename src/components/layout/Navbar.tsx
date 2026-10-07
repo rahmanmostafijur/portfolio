@@ -50,13 +50,12 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-6 z-50 flex justify-center px-4">
-      <div className="glass-panel w-full max-w-7xl rounded-[2rem] shadow-xl">
+      <div className="glass-panel glass-blur w-full max-w-7xl rounded-[2rem] shadow-xl">
         <nav aria-label="Primary" className="flex items-center justify-between gap-4 px-6 py-4">
           <a
             href="/#home"
             onClick={handleClick('home')}
             className="group flex shrink-0 items-center gap-3 rounded-xl"
-            aria-label={`${profile.name}, back to top`}
           >
             <LogoBadge className="transition-transform duration-300 group-hover:scale-105" />
             <span className="flex flex-col text-left">
@@ -67,6 +66,7 @@ export default function Navbar() {
                 Portfolio
               </span>
             </span>
+            <span className="sr-only">, back to top</span>
           </a>
 
           <ul className="hidden flex-1 justify-center gap-8 text-sm font-medium text-muted-foreground lg:flex">

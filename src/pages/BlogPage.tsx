@@ -30,7 +30,7 @@ export default function BlogPage() {
         {blogPosts.map((post, i) => (
           <li key={post.slug}>
             <Reveal delay={i * 0.06} className="h-full">
-              <article className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-card/80 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+              <article className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
                 <div
                   aria-hidden
                   className="relative flex aspect-[16/9] items-center justify-center bg-linear-to-br from-purple-700 via-indigo-900 to-neutral-950 p-6 text-center"

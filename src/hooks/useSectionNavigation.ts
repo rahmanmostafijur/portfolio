@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useReducedMotion } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import type { SectionId } from '@/data/profile';
 
 /** Returns a function that scrolls to a home-page section, navigating back to `/` first when on another page. */
 export function useSectionNavigation(): (id: SectionId) => void {
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   return useCallback(
     (id: SectionId) => {

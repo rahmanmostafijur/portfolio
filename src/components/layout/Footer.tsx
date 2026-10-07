@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useReducedMotion } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { ArrowUp } from 'lucide-react';
 import { navLinks, profile, services, socials, type SectionId } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
@@ -14,7 +14,7 @@ const footerLinks = [...navLinks, { id: 'contact' as SectionId, label: 'Contact'
 
 /** Blur cross-fade between the service titles, as in the template footer. */
 function RotatingWords() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function RotatingWords() {
           aria-hidden
           className={cn(
             'absolute inset-0 flex items-center justify-center transition-all duration-700',
-            i === index ? 'opacity-100 blur-0' : 'opacity-0 blur-xl',
+            i === index ? 'opacity-100 blur-0' : 'opacity-0 blur-sm',
           )}
         >
           {word}
@@ -61,10 +61,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative z-10 w-full overflow-hidden rounded-t-[3rem] border-t border-black/5 bg-card/60 pt-16 pb-32 shadow-2xl backdrop-blur-2xl md:pb-36 dark:border-white/10">
+    <footer className="defer-render relative z-10 w-full overflow-hidden rounded-t-[3rem] border-t border-black/5 bg-card/60 pt-16 pb-32 shadow-2xl md:pb-36 dark:border-white/10">
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 h-[350px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[140px]"
+        className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[1000px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(139,92,246,0.1),transparent)]"
       />
 
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-10 px-6 md:px-12">

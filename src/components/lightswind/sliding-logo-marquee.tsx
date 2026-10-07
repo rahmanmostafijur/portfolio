@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { useReducedMotion } from "framer-motion";
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { cn } from "@/lib/utils";
 
 interface SlidingLogoMarqueeItem {
@@ -29,7 +29,7 @@ export function SlidingLogoMarquee({
   className,
   itemClassName,
 }: SlidingLogoMarqueeProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
 
   const renderList = (isDuplicate: boolean) => (

@@ -8,11 +8,11 @@ const iconCircle =
 
 export default function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="mx-auto w-full max-w-7xl px-6 py-24">
+    <section id="contact" aria-labelledby="contact-heading" className="defer-render mx-auto w-full max-w-7xl px-6 py-24">
       <Reveal>
         <div className="glass-panel relative overflow-hidden rounded-[3rem] border-foreground/10 p-6 sm:p-8 md:p-12">
-          <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 size-96 rounded-full bg-brand/20 blur-[100px]" />
-          <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 size-96 rounded-full bg-cyan-500/10 blur-[100px]" />
+          <div aria-hidden className="pointer-events-none absolute -top-64 -right-64 size-[36rem] bg-[radial-gradient(closest-side,rgba(139,92,246,0.18),transparent)]" />
+          <div aria-hidden className="pointer-events-none absolute -bottom-64 -left-64 size-[36rem] bg-[radial-gradient(closest-side,rgba(6,182,212,0.12),transparent)]" />
 
           <div className="relative z-10 flex flex-col gap-12 md:flex-row md:gap-24">
             <div className="flex-1 space-y-8">

@@ -30,7 +30,7 @@ const items = technologies.map((name) => {
 
 export default function TechMarquee() {
   return (
-    <div className="relative z-10 mt-auto w-full border-y border-foreground/10 bg-foreground/[0.02] py-6">
+    <div className="relative z-10 mt-auto w-full border-y border-foreground/10 bg-foreground/[0.02] py-6 [contain-intrinsic-size:auto_100px] [content-visibility:auto]">
       <SlidingLogoMarquee items={items} label="Technologies I work with" className="px-4" />
     </div>
   );

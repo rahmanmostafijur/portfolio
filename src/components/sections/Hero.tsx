@@ -1,5 +1,4 @@
 import { lazy, Suspense, type MouseEvent } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 import { profile, socials } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
@@ -13,17 +12,11 @@ const CARD_SLOT = 'h-[660px] w-full max-w-md';
 
 export default function Hero() {
   const goToSection = useSectionNavigation();
-  const reduceMotion = useReducedMotion();
 
   // The heading itself is never faded in, so it can paint immediately as the LCP element
-  const fadeUp = (delay: number) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 16 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
-        };
+  const fadeUp = (delay: number) => ({
+    style: { animationDelay: `${delay}s` },
+  });
 
   const handleViewWork = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -39,21 +32,21 @@ export default function Hero() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <div className="bg-dot-grid absolute inset-0" />
-        <div className="absolute top-1/2 left-1/2 h-[450px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[120px] dark:bg-brand/25" />
+        <div className="absolute top-[50vh] left-1/2 h-[600px] w-[1000px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(139,92,246,0.14),transparent)] dark:bg-[radial-gradient(closest-side,rgba(139,92,246,0.3),transparent)]" />
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-12 px-6 pb-12 md:flex-row md:gap-20">
         <div className="flex min-w-0 flex-1 flex-col items-center text-center md:items-start md:text-left">
-          <motion.p
+          <p
             {...fadeUp(0)}
-            className="glass-panel mb-6 inline-flex items-center gap-2.5 rounded-full border-foreground/10 px-4 py-1.5"
+            className="animate-fade-up glass-panel mb-6 inline-flex items-center gap-2.5 rounded-full border-foreground/10 px-4 py-1.5"
           >
             <span aria-hidden className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75 motion-reduce:hidden" />
               <span className="relative inline-flex size-2 rounded-full bg-green-500" />
             </span>
             <span className="text-xs font-medium text-muted-foreground">{profile.availability}</span>
-          </motion.p>
+          </p>
 
           <h1
             id="home-heading"
@@ -66,16 +59,16 @@ export default function Hero() {
             </span>
           </h1>
 
-          <motion.p
+          <p
             {...fadeUp(0.1)}
-            className="mb-8 w-full max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+            className="animate-fade-up mb-8 w-full max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
           >
             {profile.tagline}
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
             {...fadeUp(0.2)}
-            className="mb-10 flex flex-wrap items-center justify-center gap-4 md:justify-start"
+            className="animate-fade-up mb-10 flex flex-wrap items-center justify-center gap-4 md:justify-start"
           >
             <a
               href="/#projects"
@@ -93,9 +86,9 @@ export default function Hero() {
               Resume
               <Download aria-hidden className="size-4" />
             </a>
-          </motion.div>
+          </div>
 
-          <motion.ul {...fadeUp(0.3)} className="flex items-center gap-4" aria-label="Social links">
+          <ul {...fadeUp(0.3)} className="animate-fade-up flex items-center gap-4" aria-label="Social links">
             {socials.map((social) => {
               const isExternal = social.icon !== 'email';
               return (
@@ -111,7 +104,7 @@ export default function Hero() {
                 </li>
               );
             })}
-          </motion.ul>
+          </ul>
         </div>
 
         <div className={`relative flex flex-1 items-start justify-center ${CARD_SLOT}`}>

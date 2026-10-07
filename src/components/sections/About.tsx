@@ -42,7 +42,7 @@ export default function About() {
                   <div className="glass-panel group relative h-full overflow-hidden rounded-2xl border-foreground/10 p-6 transition-colors hover:border-brand/50">
                     <div
                       aria-hidden
-                      className="absolute -top-6 -right-6 size-24 rounded-full bg-brand/10 blur-2xl transition-colors group-hover:bg-brand/20"
+                      className="absolute -top-12 -right-12 size-40 bg-[radial-gradient(closest-side,rgba(139,92,246,0.18),transparent)] opacity-70 transition-opacity group-hover:opacity-100"
                     />
                     <span className="mb-4 flex w-max rounded-xl bg-primary/10 p-3 text-primary">
                       <Icon aria-hidden className="size-6" />
