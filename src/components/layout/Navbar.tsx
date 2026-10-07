@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react';
-import { navLinks, profile, type SectionId } from '@/data/profile';
+import { NavLink } from 'react-router-dom';
+import { blogLink, navLinks, profile, type SectionId } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
 import { ToggleTheme } from '@/components/lightswind/toggle-theme';
 
@@ -31,7 +32,7 @@ export default function Navbar() {
           >
             {profile.initials}
           </span>
-          <span className="hidden flex-col leading-tight sm:flex">
+          <span className="hidden flex-col leading-tight sm:flex md:hidden lg:flex">
             <span className="font-display text-[15px] font-bold text-foreground">{profile.name}</span>
             <span className="text-[10px] font-semibold tracking-[0.2em] text-muted-foreground">
               PORTFOLIO
@@ -51,6 +52,18 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li>
+            <NavLink
+              to={blogLink.to}
+              className={({ isActive }) =>
+                `rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground lg:px-4 ${
+                  isActive ? 'bg-muted text-foreground' : 'text-muted-foreground'
+                }`
+              }
+            >
+              {blogLink.label}
+            </NavLink>
+          </li>
         </ul>
 
         <ToggleTheme className="shrink-0" />

@@ -23,6 +23,11 @@ export interface NavLinkItem {
   label: string;
 }
 
+export interface PageLinkItem {
+  to: string;
+  label: string;
+}
+
 export interface IdCardField {
   label: string;
   value: string;
@@ -109,6 +114,8 @@ export const navLinks: NavLinkItem[] = [
   { id: 'career', label: 'Career' },
   { id: 'projects', label: 'Projects' },
 ];
+
+export const blogLink: PageLinkItem = { to: '/blog', label: 'Blog' };
 
 export const idCardFields: IdCardField[] = [
   { label: 'Specialty', value: 'Python backend' },
