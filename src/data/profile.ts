@@ -145,6 +145,7 @@ export const headings = {
   },
   career: { title: 'Career', accent: 'Journey' },
   education: { title: 'Academic', accent: 'Background' },
+  contact: { title: "Let's", accent: 'Connect' },
   skills: {
     title: 'Technical',
     accent: 'Arsenal',
@@ -289,7 +290,6 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 export const contact = {
-  heading: "Let's Connect",
   intro:
     'Open to remote roles and collaborations. Send a message through the form or email me directly.',
   // TODO(content): Web3Forms access key (public by design, not a secret)
