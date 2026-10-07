@@ -223,7 +223,6 @@ export const education: EducationItem[] = [
     institution: 'Green University of Bangladesh, Dhaka',
     years: '2019 – 2023',
     bullets: [
-      'Specialized in distributed systems and software architecture.',
       'Core coursework included Data Structures, Algorithms, Operating Systems, and Machine Learning.',
       'Final-year project: Air Pollution Monitoring & Forecasting System.',
     ],

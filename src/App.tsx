@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollManager from '@/components/layout/ScrollManager';
 import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar';
 import HomePage from '@/pages/HomePage';
 import BlogPage from '@/pages/BlogPage';
 import BlogPostPage from '@/pages/BlogPostPage';
@@ -27,6 +28,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <Navbar />
       <main id="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
