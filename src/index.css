@@ -10,20 +10,6 @@
 @theme {
   --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-
-  --color-ink-900: #0d0d0d;
-  --color-ink-800: #131313;
-  --color-ink-700: #1a1c1c;
-  --color-ink-600: #232525;
-  --color-ink-500: #2e3131;
-
-  --color-chalk: #fafaf9;
-  --color-chalk-dim: #c6c6c6;
-  --color-chalk-faint: #8b8b8b;
-
-  --color-amber-brand: #f59e0b;
-  --color-cyan-brand: #06b6d4;
-  --color-violet-brand: #8b5cf6;
 }
 
 /* ─────────────────────────────────────────────
@@ -86,28 +72,6 @@
 }
 
 /* ─────────────────────────────────────────────
-   LIGHT THEME — re-points the same scale, so every
-   Tailwind utility (bg-ink-*, text-chalk-*) flips.
-───────────────────────────────────────────── */
-.light {
-  --color-ink-900: #ffffff;
-  --color-ink-800: #f4f2ec;
-  --color-ink-700: #ffffff;
-  --color-ink-600: #ebe8df;
-  --color-ink-500: #ded9cd;
-
-  --color-chalk: #16150f;
-  --color-chalk-dim: #4c4a42;
-  --color-chalk-faint: #6f6c62;
-}
-
-/* White-alpha borders/dividers are invisible on a light ground.
-   `:where()` keeps specificity at 0 so explicit border colours still win. */
-.light :where(*, *::before, *::after) {
-  border-color: rgba(22, 21, 15, 0.14);
-}
-
-/* ─────────────────────────────────────────────
    BASE
 ───────────────────────────────────────────── */
 @layer base {
@@ -116,63 +80,45 @@
   }
 
   body {
-    background-color: var(--color-ink-800);
-    color: var(--color-chalk);
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: var(--font-sans);
     line-height: 1.65;
     overflow-x: hidden;
-    cursor: none;
     -webkit-font-smoothing: antialiased;
   }
 
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+
+  /* Keep anchored sections clear of the floating navbar */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
   ::selection {
-    background-color: var(--color-amber-brand);
-    color: var(--color-ink-900);
+    background-color: color-mix(in srgb, var(--accent-from) 25%, transparent);
   }
 }
 
-/* ─────────────────────────────────────────────
-   CUSTOM CURSOR (rendered by CustomCursor.tsx)
-───────────────────────────────────────────── */
-@layer components {
-  #cursor-dot,
-  #cursor-ring {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    border-radius: 9999px;
-    transform: translate(-50%, -50%);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  #cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-amber-brand);
-  }
-
-  #cursor-ring {
-    width: 32px;
-    height: 32px;
-    border: 1.5px solid var(--color-chalk-faint);
-    opacity: 0.5;
-    transition: width 0.3s, height 0.3s, opacity 0.3s, border-color 0.3s;
-  }
-
-  body:has(a:hover) #cursor-ring,
-  body:has(button:hover) #cursor-ring {
-    width: 48px;
-    height: 48px;
-    opacity: 0.9;
-    border-color: var(--color-amber-brand);
-  }
-
-  @media (pointer: coarse) {
-    body {
-      cursor: auto;
-    }
-    #cursor-dot,
-    #cursor-ring {
-      display: none;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

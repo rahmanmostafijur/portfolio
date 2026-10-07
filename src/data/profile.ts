@@ -65,7 +65,7 @@ export interface EducationItem {
   degree: string;
   institution: string;
   years: string;
-  highlight: string;
+  highlight?: string;
   bullets: string[];
 }
 
@@ -204,7 +204,7 @@ export const career: CareerItem[] = [
     workMode: 'Remote',
     description:
       'Designing and developing scalable backend services with Python and FastAPI, focused on performance and clean architecture, and building dynamic, user-friendly interfaces with React and Next.js. I design and consume the RESTful APIs that connect frontend and backend, and collaborate with cross-functional teams to deliver production-ready solutions — including Japan Hands, an e-commerce platform for manga-related accessories (a sister concern of mangafam.com) that I build across the full stack.',
-    tags: ['Python', 'FastAPI', 'JavaScript', 'React', 'PostgreSQL'],
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'TypeScript', 'React', 'Next.js', 'Docker'],
   },
 ];
 
@@ -222,7 +222,6 @@ export const education: EducationItem[] = [
     degree: 'B.Sc in Computer Science & Engineering',
     institution: 'Green University of Bangladesh, Dhaka',
     years: '2019 – 2023',
-    highlight: 'Distributed Systems & Software Architecture',
     bullets: [
       'Specialized in distributed systems and software architecture.',
       'Core coursework included Data Structures, Algorithms, Operating Systems, and Machine Learning.',
