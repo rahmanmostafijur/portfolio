@@ -5,6 +5,7 @@ import Services from '@/components/sections/Services';
 import Projects from '@/components/sections/Projects';
 import Career from '@/components/sections/Career';
 import Education from '@/components/sections/Education';
+import Skills from '@/components/sections/Skills';
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Projects />
       <Career />
       <Education />
+      <Skills />
     </>
   );
 }
