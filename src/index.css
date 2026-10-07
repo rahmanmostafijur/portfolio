@@ -71,6 +71,16 @@
   color: transparent;
 }
 
+/* Tech marquee: the track holds two copies of the list, so -50% loops seamlessly */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ─────────────────────────────────────────────
    BASE
 ───────────────────────────────────────────── */

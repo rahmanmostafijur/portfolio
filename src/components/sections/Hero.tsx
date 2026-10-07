@@ -8,7 +8,7 @@ import SocialIcon from '@/components/ui/SocialIcon';
 const HeroIdCard = lazy(() => import('@/components/sections/HeroIdCard'));
 
 // Space reserved for the lazy card so nothing shifts when it loads
-const CARD_SLOT = 'h-[540px] w-72';
+const CARD_SLOT = 'h-[640px] w-72';
 
 export default function Hero() {
   const goToSection = useSectionNavigation();
@@ -32,7 +32,10 @@ export default function Hero() {
 
   return (
     <section id="home" aria-labelledby="home-heading" className="relative isolate overflow-hidden">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
+      >
         <div className="absolute -top-32 right-[-10%] size-[32rem] rounded-full bg-accent-from/15 blur-3xl" />
         <div className="absolute top-1/2 left-[-15%] size-[28rem] rounded-full bg-accent-to/10 blur-3xl" />
       </div>
