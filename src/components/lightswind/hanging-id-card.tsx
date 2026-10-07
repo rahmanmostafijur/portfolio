@@ -315,4 +315,3 @@ export const HangingIdCard = ({
   );
 };
 
-export default HangingIdCard;

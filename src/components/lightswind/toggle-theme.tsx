@@ -77,4 +77,3 @@ export const ToggleTheme = ({ className, duration = 400, ...props }: ToggleTheme
   );
 };
 
-export default ToggleTheme;

@@ -3,7 +3,7 @@ import { Pause, Play } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export interface SlidingLogoMarqueeItem {
+interface SlidingLogoMarqueeItem {
   id: string;
   content: React.ReactNode;
 }
@@ -88,4 +88,3 @@ export function SlidingLogoMarquee({
   );
 }
 
-export default SlidingLogoMarquee;
