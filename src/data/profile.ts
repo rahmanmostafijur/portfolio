@@ -46,6 +46,17 @@ export interface Service {
   description: string;
 }
 
+export type ProjectIcon =
+  | 'list-checks'
+  | 'headset'
+  | 'bot'
+  | 'boxes'
+  | 'clipboard-list'
+  | 'radar'
+  | 'wind'
+  | 'shopping-bag'
+  | 'download';
+
 export interface Project {
   slug: string;
   title: string;
@@ -54,7 +65,9 @@ export interface Project {
   tech: string[];
   image?: { src: string; srcSet: string; alt: string; width: number; height: number };
   /** Icon on the gradient placeholder shown when there is no screenshot */
-  placeholderIcon: 'wind' | 'shopping-bag' | 'list-checks';
+  placeholderIcon: ProjectIcon;
+  /** Status taken from the repository README or description */
+  status?: { label: string; tone: 'live' | 'progress' | 'neutral' };
   githubUrl?: string;
   liveUrl?: string;
 }
@@ -212,8 +225,8 @@ export const projects: Project[] = [
     slug: 'task-manager',
     title: 'Task Manager',
     description:
-      'A multi-user task management application where users register, log in, and manage their own tasks — each user can only see and modify the tasks they own.',
-    tech: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'Alembic', 'Docker'],
+      'Multi-user task manager — a FastAPI + PostgreSQL API with JWT refresh-token rotation and a React + TypeScript client. 81 tests, Dockerised and deployed.',
+    tech: ['FastAPI', 'PostgreSQL', 'SQLAlchemy', 'Alembic', 'JWT', 'pytest', 'React', 'TypeScript', 'Docker'],
     image: {
       src: '/images/projects/task-manager-960.webp',
       srcSet:
@@ -223,18 +236,71 @@ export const projects: Project[] = [
       height: 600,
     },
     placeholderIcon: 'list-checks',
+    status: { label: 'Live', tone: 'live' },
     githubUrl: 'https://github.com/rahmanmostafijur/taskmanager',
     liveUrl: 'https://taskmanagerforyou.vercel.app',
   },
   {
-    slug: 'air-pollution-monitoring-forecasting',
+    slug: 'supportdesk',
+    title: 'SupportDesk',
+    description:
+      'Real-time helpdesk — FastAPI, async SQLAlchemy and WebSockets over PostgreSQL, with a React 19 / TypeScript client: live ticket chat, role-based triage and a knowledge base.',
+    tech: ['FastAPI', 'PostgreSQL', 'SQLAlchemy', 'WebSockets', 'JWT', 'React', 'TypeScript', 'Docker'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
+    placeholderIcon: 'headset',
+    githubUrl: 'https://github.com/rahmanmostafijur/SupportDesk',
+  },
+  {
+    slug: 'nexaai',
+    title: 'NexaAI',
+    description:
+      'Multilingual business agent (English, Bengali, Banglish) that routes each question to read-only Text-to-SQL, hybrid RAG over pgvector, or both — and cites its evidence.',
+    tech: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'RAG', 'Text-to-SQL', 'Docker'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
+    placeholderIcon: 'bot',
+    githubUrl: 'https://github.com/rahmanmostafijur/NexaAI',
+  },
+  {
+    slug: 'solmira',
+    title: 'Solmira',
+    description:
+      'Multi-tenant B2B order, inventory and fulfillment platform — a Next.js front end over NestJS services, built for concurrency correctness and strict tenant isolation.',
+    tech: ['Next.js', 'React', 'TypeScript', 'NestJS', 'PostgreSQL', 'Redis', 'RabbitMQ', 'Docker'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
+    placeholderIcon: 'boxes',
+    status: { label: 'In progress · phases 1–5 of 12', tone: 'progress' },
+    githubUrl: 'https://github.com/rahmanmostafijur/solmira',
+  },
+  {
+    slug: 'procuraflow',
+    title: 'ProcuraFlow',
+    description:
+      'B2B procurement and inventory platform — purchase-order approval workflows, stock receiving and supplier delivery reporting, behind role-based access and a full audit trail.',
+    tech: ['Python', 'FastAPI', 'PostgreSQL', 'React', 'TypeScript', 'Docker'],
+    // TODO(content): screenshot (shows a gradient placeholder until then)
+    placeholderIcon: 'clipboard-list',
+    githubUrl: 'https://github.com/rahmanmostafijur/ProcuraFlow',
+  },
+  {
+    slug: 'sanket',
+    title: 'Sanket',
+    description:
+      'Job-market intelligence service — scheduled ingestion, LLM extraction into Pydantic schemas and hybrid pgvector search.',
+    tech: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'Redis', 'LLM'],
+    placeholderIcon: 'radar',
+    status: { label: 'In progress', tone: 'progress' },
+    githubUrl: 'https://github.com/rahmanmostafijur/Sanket',
+  },
+  {
+    slug: 'air-pollution-monitoring',
     title: 'Air Pollution Monitoring & Forecasting',
     description:
-      'Tracks real-time air quality data and predicts future pollution levels from multi-source environmental data.',
-    tech: ['Python', 'FastAPI', 'React', 'Next.js'],
+      'IoT + ML air quality system — an Arduino sensor node (MQ-2, MQ-135, LM35) streaming to ThingSpeak, a live dashboard, and classifiers reaching 0.89 accuracy.',
+    tech: ['Arduino', 'ESP8266', 'ThingSpeak', 'Python', 'Keras', 'TensorFlow', 'Scikit-learn'],
     // TODO(content): screenshot (shows a gradient placeholder until then)
     placeholderIcon: 'wind',
-    githubUrl: 'https://github.com/mustafiz-emon/Air-Polltion-Monitoring-and-Forecasting',
+    status: { label: 'Final-year project', tone: 'neutral' },
+    githubUrl: 'https://github.com/rahmanmostafijur/air-pollution-monitoring',
   },
   {
     slug: 'japan-hands',
@@ -245,6 +311,16 @@ export const projects: Project[] = [
     // TODO(content): tech stack (tags are hidden while this is empty)
     tech: [],
     placeholderIcon: 'shopping-bag',
+  },
+  {
+    slug: 'namao-downloader',
+    title: 'Namao',
+    description:
+      'Personal video downloader for YouTube, Facebook, TikTok, X and Instagram — FastAPI + yt-dlp behind a browser UI, packaged as a single Windows .exe and an Android build.',
+    tech: ['Python', 'FastAPI', 'yt-dlp', 'Kotlin', 'Android'],
+    placeholderIcon: 'download',
+    status: { label: 'Personal tool', tone: 'neutral' },
+    githubUrl: 'https://github.com/rahmanmostafijur/namao-downloader',
   },
 ];
 
@@ -294,7 +370,7 @@ export const skillGroups: SkillGroup[] = [
   { category: 'Frontend', items: ['React', 'Next.js', 'HTML5', 'CSS3'] },
   { category: 'Database', items: ['PostgreSQL'] },
   { category: 'DevOps / Tools', items: ['Docker', 'Postman', 'Git', 'GitHub', 'Linux'] },
-  { category: 'AI / ML', items: ['PyTorch', 'Pandas', 'NumPy'] },
+  { category: 'AI / ML', items: ['PyTorch', 'Scikit-learn', 'Pandas', 'NumPy'] },
 ];
 
 export const contact = {

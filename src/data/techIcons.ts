@@ -26,6 +26,7 @@ export const techIcons: Record<string, TechIcon> = {
   GitHub: { src: '/tech/github.svg', invertInDark: true },
   Linux: { src: '/tech/linux.svg' },
   PyTorch: { src: '/tech/pytorch.svg' },
+  'Scikit-learn': { src: '/tech/scikitlearn.svg' },
   Pandas: { src: '/tech/pandas.svg', invertInDark: true },
   NumPy: { src: '/tech/numpy.svg', invertInDark: true },
 };
