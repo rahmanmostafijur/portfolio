@@ -1,14 +1,15 @@
 import { lazy, Suspense, type MouseEvent } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import { profile, socials } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
 import SocialIcon from '@/components/ui/SocialIcon';
+import TechMarquee from '@/components/sections/TechMarquee';
 
 const HeroIdCard = lazy(() => import('@/components/sections/HeroIdCard'));
 
 // Space reserved for the lazy card so nothing shifts when it loads
-const CARD_SLOT = 'h-[640px] w-72';
+const CARD_SLOT = 'h-[660px] w-full max-w-md';
 
 export default function Hero() {
   const goToSection = useSectionNavigation();
@@ -31,46 +32,55 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" aria-labelledby="home-heading" className="relative isolate overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]"
-      >
-        <div className="absolute -top-32 right-[-10%] size-[32rem] rounded-full bg-accent-from/15 blur-3xl" />
-        <div className="absolute top-1/2 left-[-15%] size-[28rem] rounded-full bg-accent-to/10 blur-3xl" />
+    <section
+      id="home"
+      aria-labelledby="home-heading"
+      className="relative flex min-h-screen flex-col overflow-hidden bg-background pt-28 md:pt-32"
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div className="bg-dot-grid absolute inset-0" />
+        <div className="absolute top-1/2 left-1/2 h-[450px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[120px] dark:bg-brand/25" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pt-32 pb-16 sm:px-6 md:pt-40 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16 lg:pb-24">
-        <div className="min-w-0">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-12 px-6 pb-12 md:flex-row md:gap-20">
+        <div className="flex min-w-0 flex-1 flex-col items-center text-center md:items-start md:text-left">
           <motion.p
             {...fadeUp(0)}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium text-foreground shadow-sm"
+            className="glass-panel mb-6 inline-flex items-center gap-2.5 rounded-full border-foreground/10 px-4 py-1.5"
           >
             <span aria-hidden className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:hidden" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75 motion-reduce:hidden" />
+              <span className="relative inline-flex size-2 rounded-full bg-green-500" />
             </span>
-            {profile.availability}
+            <span className="text-xs font-medium text-muted-foreground">{profile.availability}</span>
           </motion.p>
 
           <h1
             id="home-heading"
-            className="mt-6 pb-1 font-display text-[2.75rem] leading-[1.05] font-bold text-balance tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+            className="mb-4 text-5xl leading-[1.1] font-bold tracking-tight text-foreground md:text-7xl"
           >
             Hi, I&apos;m
             <br />
-            <span className="text-gradient break-words">{profile.name}</span>
+            <span className="text-gradient-name text-[clamp(3rem,6.5vw,5.5rem)] leading-none font-extrabold break-words">
+              {profile.name}
+            </span>
           </h1>
 
-          <motion.p {...fadeUp(0.1)} className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
+          <motion.p
+            {...fadeUp(0.1)}
+            className="mb-8 w-full max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+          >
             {profile.tagline}
           </motion.p>
 
-          <motion.div {...fadeUp(0.2)} className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div
+            {...fadeUp(0.2)}
+            className="mb-10 flex flex-wrap items-center justify-center gap-4 md:justify-start"
+          >
             <a
               href="/#projects"
               onClick={handleViewWork}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-opacity hover:opacity-90"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-sm font-semibold text-primary-foreground shadow-lg transition-transform hover:-translate-y-0.5"
             >
               View Work
               <ArrowRight aria-hidden className="size-4" />
@@ -78,14 +88,14 @@ export default function Hero() {
             <a
               href={profile.cvUrl}
               download
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground shadow-sm transition-colors hover:bg-muted"
+              className="glass-panel inline-flex h-12 items-center gap-2 rounded-full px-7 text-sm font-semibold text-foreground transition-transform hover:-translate-y-0.5"
             >
               Resume
-              <ArrowDown aria-hidden className="size-4" />
+              <Download aria-hidden className="size-4" />
             </a>
           </motion.div>
 
-          <motion.ul {...fadeUp(0.3)} className="mt-8 flex items-center gap-3" aria-label="Social links">
+          <motion.ul {...fadeUp(0.3)} className="flex items-center gap-4" aria-label="Social links">
             {socials.map((social) => {
               const isExternal = social.icon !== 'email';
               return (
@@ -94,9 +104,9 @@ export default function Hero() {
                     href={social.href}
                     aria-label={social.label}
                     {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
-                    className="flex size-10 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground"
+                    className="block rounded-md p-1 text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:text-foreground"
                   >
-                    <SocialIcon name={social.icon} className="size-[18px]" />
+                    <SocialIcon name={social.icon} className="size-5" />
                   </a>
                 </li>
               );
@@ -104,12 +114,14 @@ export default function Hero() {
           </motion.ul>
         </div>
 
-        <div className={`mx-auto ${CARD_SLOT} lg:mx-0`}>
+        <div className={`relative flex flex-1 items-start justify-center ${CARD_SLOT}`}>
           <Suspense fallback={null}>
             <HeroIdCard />
           </Suspense>
         </div>
       </div>
+
+      <TechMarquee />
     </section>
   );
 }

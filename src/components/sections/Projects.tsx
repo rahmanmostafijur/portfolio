@@ -1,4 +1,4 @@
-import { ExternalLink, ListChecks, ShoppingBag, Wind, type LucideIcon } from 'lucide-react';
+import { ArrowUpRight, ListChecks, ShoppingBag, Wind, type LucideIcon } from 'lucide-react';
 import { headings, projects, type Project } from '@/data/profile';
 import { cn } from '@/lib/utils';
 import Section from '@/components/layout/Section';
@@ -11,108 +11,109 @@ const placeholderIcons: Record<Project['placeholderIcon'], LucideIcon> = {
   'list-checks': ListChecks,
 };
 
+// Bento layout from the template: 7/5 columns on the first row, then a full-width card
+const LAYOUT = [
+  'md:col-span-7 h-[460px] md:h-[420px]',
+  'md:col-span-5 h-[460px] md:h-[420px]',
+  'md:col-span-12 h-[420px] md:h-[360px]',
+];
+
 function ProjectMedia({ project }: { project: Project }) {
   if (project.image) {
     return (
       <img
         src={project.image.src}
         srcSet={project.image.srcSet}
-        sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
+        sizes="(min-width: 768px) 60vw, 100vw"
         width={project.image.width}
         height={project.image.height}
         alt={project.image.alt}
         loading="lazy"
         decoding="async"
-        className="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+        className="size-full object-cover object-top opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
       />
     );
   }
 
-  // Designed placeholder until a real screenshot exists — decorative, the title is in the card body
+  // Designed placeholder until a real screenshot exists — decorative, the title is in the overlay
   const Icon = placeholderIcons[project.placeholderIcon];
   return (
     <div
       aria-hidden
-      className="flex size-full flex-col items-center justify-center gap-4 bg-brand-gradient p-8 text-center text-white"
+      className="relative flex size-full items-start justify-center bg-linear-to-br from-purple-700 via-indigo-900 to-neutral-950 pt-16 transition-transform duration-700 group-hover:scale-105"
     >
-      <span className="flex size-16 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
-        <Icon className="size-8" />
+      <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:14px_14px] opacity-10" />
+      <span className="relative flex size-20 items-center justify-center rounded-3xl border border-white/25 bg-white/10 text-white backdrop-blur-md">
+        <Icon className="size-10" />
       </span>
-      <span className="max-w-[18ch] font-display text-xl leading-tight font-bold">{project.title}</span>
     </div>
   );
 }
 
-const linkClass =
-  'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors';
+const roundLink =
+  'flex size-12 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-md transition-colors hover:bg-white hover:text-black';
 
-function ProjectCard({ project, featured }: { project: Project; featured: boolean }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <article
-      className={cn(
-        'group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-lg',
-        featured && 'lg:grid lg:grid-cols-[1.15fr_1fr]',
-      )}
-    >
-      <div
-        className={cn(
-          'aspect-[16/10] overflow-hidden border-b border-border bg-muted',
-          featured && 'lg:aspect-auto lg:border-r lg:border-b-0',
-        )}
-      >
+    <article className="group relative h-full overflow-hidden rounded-[2.25rem] border border-foreground/10 shadow-xl">
+      <div className="absolute inset-0 bg-neutral-950">
         <ProjectMedia project={project} />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
       </div>
 
-      <div className="flex flex-1 flex-col p-6 sm:p-8">
-        {project.label && (
-          <p className="mb-3 w-fit rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
-            {project.label}
-          </p>
-        )}
-        <h3 className="text-2xl font-bold tracking-tight text-foreground">{project.title}</h3>
-        <p className="mt-3 leading-relaxed text-muted-foreground">{project.description}</p>
-
-        {project.tech.length > 0 && (
-          <ul aria-label={`${project.title} tech stack`} className="mt-5 flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <li
-                key={tech}
-                className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
-              >
-                {tech}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {(project.githubUrl || project.liveUrl) && (
-          <div className="mt-auto flex flex-wrap gap-3 pt-6">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.title} live demo (opens in a new tab)`}
-                className={cn(linkClass, 'bg-primary text-primary-foreground hover:opacity-90')}
-              >
-                Live demo
-                <ExternalLink aria-hidden className="size-4" />
-              </a>
+      <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+        <div className="flex flex-col gap-4 transition-transform duration-300 sm:flex-row sm:items-end sm:justify-between motion-safe:translate-y-2 motion-safe:group-hover:translate-y-0">
+          <div className="max-w-lg">
+            {project.label && (
+              <p className="mb-3 w-fit rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                {project.label}
+              </p>
             )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.title} source code on GitHub (opens in a new tab)`}
-                className={cn(linkClass, 'border border-border text-foreground hover:bg-muted')}
-              >
-                <SocialIcon name="github" className="size-4" />
-                GitHub
-              </a>
+            <h3 className="mb-2 text-2xl font-extrabold tracking-tight text-white drop-shadow-md md:text-3xl">
+              {project.title}
+            </h3>
+            <p className="text-sm font-medium text-white/85 md:text-base">{project.description}</p>
+            {project.tech.length > 0 && (
+              <ul aria-label={`${project.title} tech stack`} className="mt-4 flex flex-wrap gap-2">
+                {project.tech.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white backdrop-blur-md"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
-        )}
+
+          {(project.githubUrl || project.liveUrl) && (
+            <div className="flex shrink-0 gap-3">
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} source code on GitHub (opens in a new tab)`}
+                  className={roundLink}
+                >
+                  <SocialIcon name="github" className="size-5" />
+                </a>
+              )}
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} live demo (opens in a new tab)`}
+                  className={roundLink}
+                >
+                  <ArrowUpRight aria-hidden className="size-6" />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );
@@ -120,12 +121,12 @@ function ProjectCard({ project, featured }: { project: Project; featured: boolea
 
 export default function Projects() {
   return (
-    <Section id="projects" {...headings.projects}>
-      <ul className="grid gap-6 md:grid-cols-2">
+    <Section id="projects" align="responsive" {...headings.projects}>
+      <ul className="grid w-full grid-cols-1 gap-6 md:grid-cols-12">
         {projects.map((project, i) => (
-          <li key={project.slug} className={cn(i === 0 && 'md:col-span-2')}>
+          <li key={project.slug} className={cn(LAYOUT[i % LAYOUT.length])}>
             <Reveal delay={i * 0.08} className="h-full">
-              <ProjectCard project={project} featured={i === 0} />
+              <ProjectCard project={project} />
             </Reveal>
           </li>
         ))}

@@ -15,11 +15,11 @@ export default function BlogPage() {
   return (
     <section
       aria-labelledby="blog-heading"
-      className="mx-auto w-full max-w-6xl px-4 pt-32 pb-24 sm:px-6 md:pt-40"
+      className="mx-auto w-full max-w-7xl px-6 pt-36 pb-24 md:pt-44"
     >
       <Reveal className="mb-12 max-w-2xl">
-        <h1 id="blog-heading" className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-          Notes &amp; <span className="text-gradient">Writing</span>
+        <h1 id="blog-heading" className="mb-4 text-3xl font-bold tracking-tight md:text-5xl">
+          Notes &amp; <span className="text-gradient-primary">Writing</span>
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
           Notes on backend engineering, data pipelines and the projects I'm building.
@@ -30,12 +30,12 @@ export default function BlogPage() {
         {blogPosts.map((post, i) => (
           <li key={post.slug}>
             <Reveal delay={i * 0.06} className="h-full">
-              <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <article className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/80 bg-card/80 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
                 <div
                   aria-hidden
-                  className="flex aspect-[16/9] items-center justify-center bg-brand-gradient p-6 text-center"
+                  className="relative flex aspect-[16/9] items-center justify-center bg-linear-to-br from-purple-700 via-indigo-900 to-neutral-950 p-6 text-center"
                 >
-                  <span className="font-display text-xl font-bold text-white">{post.thumbLabel}</span>
+                  <span className="text-2xl font-extrabold tracking-tight text-white">{post.thumbLabel}</span>
                 </div>
 
                 <div className="flex flex-1 flex-col p-6">
@@ -45,7 +45,7 @@ export default function BlogPage() {
                     </time>{' '}
                     · {post.readTime}
                   </p>
-                  <h2 className="mt-2 text-lg leading-snug font-bold">
+                  <h2 className="mt-2 text-xl leading-snug font-bold tracking-tight">
                     <Link to={`/blog/${post.slug}`} className="after:absolute after:inset-0">
                       {post.title}
                     </Link>

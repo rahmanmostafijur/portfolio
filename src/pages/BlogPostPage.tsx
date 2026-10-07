@@ -19,7 +19,7 @@ function BlogPostView({ post }: { post: BlogPost }) {
   return (
     <article
       aria-labelledby="post-heading"
-      className="mx-auto w-full max-w-3xl px-4 pt-32 pb-24 sm:px-6 md:pt-40"
+      className="mx-auto w-full max-w-3xl px-6 pt-36 pb-24 md:pt-44"
     >
       <Link
         to="/blog"
@@ -36,7 +36,7 @@ function BlogPostView({ post }: { post: BlogPost }) {
       </p>
       <h1
         id="post-heading"
-        className="mt-3 font-display text-4xl leading-tight font-bold tracking-tight sm:text-5xl"
+        className="mt-3 text-4xl leading-tight font-extrabold tracking-tight md:text-5xl"
       >
         {post.title}
       </h1>
@@ -45,7 +45,7 @@ function BlogPostView({ post }: { post: BlogPost }) {
         {post.tags.map((tag) => (
           <li
             key={tag}
-            className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
+            className="glass-panel rounded-full border-foreground/10 px-3 py-1 text-xs font-semibold text-foreground"
           >
             {tag}
           </li>
@@ -66,7 +66,7 @@ function BlogPostView({ post }: { post: BlogPost }) {
           </section>
         ))}
 
-        <p className="mt-10 border-l-2 border-accent-from pl-5 text-foreground">{post.closing}</p>
+        <p className="mt-10 border-l-2 border-brand pl-5 text-foreground">{post.closing}</p>
       </div>
     </article>
   );

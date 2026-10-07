@@ -7,14 +7,14 @@ export default function NotFoundPage() {
   return (
     <section
       aria-labelledby="not-found-heading"
-      className="mx-auto w-full max-w-6xl px-4 pt-40 pb-24 text-center sm:px-6"
+      className="mx-auto w-full max-w-7xl px-6 pt-44 pb-24 text-center"
     >
       <p className="text-sm font-semibold text-muted-foreground">404</p>
       <h1
         id="not-found-heading"
-        className="mt-2 font-display text-4xl font-bold tracking-tight sm:text-5xl"
+        className="mt-2 text-4xl font-bold tracking-tight md:text-5xl"
       >
-        Page not <span className="text-gradient">found</span>
+        Page not <span className="text-gradient-primary">found</span>
       </h1>
       <p className="mt-4 text-muted-foreground">
         The page you're looking for doesn't exist or has moved.

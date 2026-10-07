@@ -10,16 +10,16 @@ const items = technologies.map((name) => {
   return {
     id: name,
     content: (
-      <span className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium whitespace-nowrap text-foreground shadow-sm">
+      <span className="flex items-center gap-3 rounded-full border border-foreground/10 bg-background/80 px-5 py-2.5 text-xs font-medium tracking-wide whitespace-nowrap text-foreground shadow-md md:text-sm">
         {icon && (
           <img
             src={icon.src}
             alt=""
-            width={18}
-            height={18}
+            width={20}
+            height={20}
             loading="lazy"
             decoding="async"
-            className={cn('size-[18px]', icon.invertInDark && 'dark:invert')}
+            className={cn('size-5', icon.invertInDark && 'dark:invert')}
           />
         )}
         {name}
@@ -30,8 +30,8 @@ const items = technologies.map((name) => {
 
 export default function TechMarquee() {
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
-      <SlidingLogoMarquee items={items} label="Technologies I work with" />
+    <div className="relative z-10 mt-auto w-full border-y border-foreground/10 bg-foreground/[0.02] py-6">
+      <SlidingLogoMarquee items={items} label="Technologies I work with" className="px-4" />
     </div>
   );
 }

@@ -8,8 +8,8 @@
    THEME SCALE — single source of truth
 ───────────────────────────────────────────── */
 @theme {
-  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #8b5cf6;
 }
 
 /* ─────────────────────────────────────────────
@@ -27,43 +27,63 @@
   --color-ring: var(--ring);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-accent-from: var(--accent-from);
-  --color-accent-to: var(--accent-to);
 }
 
 :root {
-  --background: #fafafa;
-  --foreground: #09090b;
+  --background: #ffffff;
+  --foreground: #000000;
   --card: #ffffff;
-  --muted: #f4f4f5;
-  --muted-foreground: #52525b;
-  --border: #e4e4e7;
-  --ring: #7c3aed;
-  --primary: #18181b;
-  --primary-foreground: #fafafa;
-  --accent-from: #7c3aed;
-  --accent-to: #2563eb;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --ring: #8b5cf6;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --glass-bg: #ffffffb3;
+  --glass-border: #0000001a;
+  /* Gradient stops are one shade darker than the template's so large text keeps 3:1 contrast on white */
+  --gradient-accent: linear-gradient(135deg, #7c3aed, #0284c7);
+  --gradient-name: linear-gradient(90deg, #7c3aed, #0284c7, #9333ea, #4f46e5);
   color-scheme: light;
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #111114;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --border: #27272a;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0d0d0d;
+  --muted: #262626;
+  --muted-foreground: #a6a6a6;
+  --border: #262626;
   --ring: #a78bfa;
-  --primary: #fafafa;
-  --primary-foreground: #09090b;
-  --accent-from: #a78bfa;
-  --accent-to: #60a5fa;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --glass-bg: #16171b99;
+  --glass-border: #ffffff1a;
+  --gradient-accent: linear-gradient(135deg, #a78bfa, #38bdf8);
+  --gradient-name: linear-gradient(90deg, #22d3ee, #c084fc, #7dd3fc);
   color-scheme: dark;
 }
 
-/* Purple → blue gradient for key words in headings */
-@utility text-gradient {
-  background-image: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+/* Frosted panel used for the navbar, cards and buttons */
+@utility glass-panel {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px #0000000d;
+}
+
+/* Accent gradient for key words in headings */
+@utility text-gradient-primary {
+  background-image: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Multi-stop gradient for the name in the hero */
+@utility text-gradient-name {
+  background-image: var(--gradient-name);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -72,6 +92,13 @@
 /* Fixed brand gradient for surfaces with white text/icons: stays >= 4.5:1 in both themes */
 @utility bg-brand-gradient {
   background-image: linear-gradient(135deg, #7c3aed, #2563eb);
+}
+
+/* Dotted grid behind the hero, fading out towards the edges */
+@utility bg-dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) 22%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
 }
 
 /* Tech marquee: the track holds two copies of the list, so -50% loops seamlessly */
@@ -96,15 +123,9 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    line-height: 1.65;
+    line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-  }
-
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display);
   }
 
   /* Keep anchored sections clear of the floating navbar */
@@ -118,7 +139,7 @@
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--accent-from) 25%, transparent);
+    background-color: color-mix(in srgb, #8b5cf6 25%, transparent);
   }
 }
 

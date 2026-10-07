@@ -13,37 +13,42 @@ const factIcons: Record<FactCard['icon'], LucideIcon> = {
 export default function About() {
   return (
     <Section id="about">
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <Reveal>
-          <h2
-            id="about-heading"
-            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-          >
-            {about.headingLead}
-            <br />
-            <span className="text-gradient">{about.headingAccent}</span>
-          </h2>
-          {about.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 32)} className="mt-6 text-lg text-muted-foreground">
-              {paragraph}
-            </p>
-          ))}
+      <div className="flex flex-col items-center gap-16 md:flex-row">
+        <Reveal className="flex-1 space-y-8">
+          <div>
+            <h2
+              id="about-heading"
+              className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-5xl"
+            >
+              {about.headingLead} <span className="text-gradient-primary">{about.headingAccent}</span>
+            </h2>
+            {about.paragraphs.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 32)}
+                className="mt-4 text-lg leading-relaxed text-muted-foreground"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </Reveal>
 
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid w-full flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
           {about.facts.map((fact, i) => {
             const Icon = factIcons[fact.icon];
             return (
               <li key={fact.label}>
                 <Reveal delay={i * 0.08} className="h-full">
-                  <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
-                    <span className="flex size-11 items-center justify-center rounded-xl bg-linear-to-br from-accent-from/15 to-accent-to/15 text-accent-from">
-                      <Icon aria-hidden className="size-5" />
+                  <div className="glass-panel group relative h-full overflow-hidden rounded-2xl border-foreground/10 p-6 transition-colors hover:border-brand/50">
+                    <div
+                      aria-hidden
+                      className="absolute -top-6 -right-6 size-24 rounded-full bg-brand/10 blur-2xl transition-colors group-hover:bg-brand/20"
+                    />
+                    <span className="mb-4 flex w-max rounded-xl bg-primary/10 p-3 text-primary">
+                      <Icon aria-hidden className="size-6" />
                     </span>
-                    <p className="mt-5 text-sm font-medium text-muted-foreground">{fact.label}</p>
-                    <p className="mt-1 font-display text-lg leading-snug font-bold text-foreground">
-                      {fact.value}
-                    </p>
+                    <p className="mb-1 text-xl leading-snug font-bold text-foreground">{fact.value}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{fact.label}</p>
                   </div>
                 </Reveal>
               </li>

@@ -155,14 +155,10 @@ export const headings = {
     accent: 'Works',
     subtitle: 'Personal projects and company work.',
   },
-  career: { title: 'Career', accent: 'Journey' },
+  career: { title: 'Career', accent: 'Journey', subtitle: 'Where I work and what I build there.' },
   education: { title: 'Academic', accent: 'Background' },
   contact: { title: "Let's", accent: 'Connect' },
-  skills: {
-    title: 'Technical',
-    accent: 'Arsenal',
-    subtitle: 'Languages, frameworks and tools I use, grouped by area.',
-  },
+  skills: { title: 'Expertise &', accent: 'Skills' },
 } satisfies Record<string, SectionHeading>;
 
 export const about = {

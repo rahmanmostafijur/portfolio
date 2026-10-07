@@ -1,40 +1,99 @@
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { Briefcase } from 'lucide-react';
 import { career, headings } from '@/data/profile';
-import Section from '@/components/layout/Section';
+import { cn } from '@/lib/utils';
 import Reveal from '@/components/ui/Reveal';
 
+// Line position: left edge on small screens, centre from lg up (as in the template)
+const LINE_X = 'left-5 lg:left-1/2';
+
 export default function Career() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 70%', 'end 50%'],
+  });
+  const dotTop = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
   return (
-    <Section id="career" {...headings.career}>
-      <ol className="relative ml-2 border-l-2 border-border sm:ml-4">
-        {career.map((item) => (
-          <li key={`${item.company}-${item.period}`} className="relative pb-10 pl-7 last:pb-0 sm:pl-10">
-            <span
+    <section id="career" aria-labelledby="career-heading" className="relative w-full overflow-hidden">
+      <Reveal className="px-6 py-16 text-center">
+        <h2 id="career-heading" className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+          {headings.career.title} {headings.career.accent}
+        </h2>
+        <p className="mx-auto max-w-2xl text-lg text-muted-foreground">{headings.career.subtitle}</p>
+      </Reveal>
+
+      <div ref={timelineRef} className="relative mx-auto max-w-7xl px-4 pb-24">
+        <div aria-hidden className={cn('absolute top-0 z-10 h-full w-[3px] -translate-x-1/2 bg-primary/20', LINE_X)} />
+        {!reduceMotion && (
+          <>
+            <motion.div
               aria-hidden
-              className="absolute top-7 -left-[11px] size-5 rounded-full border-4 border-background bg-linear-to-br from-accent-from to-accent-to"
+              className={cn(
+                'absolute top-0 z-10 h-full w-[3px] origin-top -translate-x-1/2 bg-linear-to-b from-purple-600 via-brand to-sky-400',
+                LINE_X,
+              )}
+              style={{ scaleY: scrollYProgress }}
             />
-            <Reveal>
-              <article className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
-                <p className="text-sm font-semibold text-accent-from">{item.period}</p>
-                <h3 className="mt-2 text-2xl font-bold tracking-tight text-foreground">{item.role}</h3>
-                <p className="mt-1 font-medium text-muted-foreground">
-                  {item.company} <span aria-hidden>·</span> {item.workMode}
-                </p>
-                <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">{item.description}</p>
-                <ul aria-label={`Stack at ${item.company}`} className="mt-5 flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </Reveal>
-          </li>
-        ))}
-      </ol>
-    </Section>
+            <motion.div
+              aria-hidden
+              className={cn('absolute z-20 -translate-x-1/2 -translate-y-1/2', LINE_X)}
+              style={{ top: dotTop }}
+            >
+              <div className="size-5 rounded-full border-2 border-white bg-brand shadow-[0_0_20px_8px_rgba(139,92,246,0.45)]" />
+            </motion.div>
+          </>
+        )}
+
+        <ol className="relative z-20">
+          {career.map((item, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <li key={`${item.company}-${item.period}`} className="relative mb-20 flex py-4 last:mb-0">
+                <span
+                  aria-hidden
+                  className={cn(
+                    'absolute top-1/2 z-30 flex size-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 bg-background',
+                    i === 0 ? 'border-primary' : 'border-border',
+                    LINE_X,
+                  )}
+                />
+                <Reveal
+                  className={cn(
+                    'relative z-30 ml-12 w-full rounded-lg border border-border/40 bg-card shadow-md lg:w-[calc(50%-40px)]',
+                    isLeft ? 'lg:mr-[calc(50%+20px)] lg:ml-0' : 'lg:ml-[calc(50%+20px)]',
+                  )}
+                >
+                  <article className="rounded-lg border border-border bg-background p-6 text-left">
+                    <p className="mb-2 flex items-center text-sm font-bold text-primary">
+                      <Briefcase aria-hidden className="mr-2 size-4" />
+                      {item.period}
+                    </p>
+                    <h3 className="mb-1 text-xl font-bold text-foreground">{item.role}</h3>
+                    <p className="mb-2 font-medium text-muted-foreground">
+                      {item.company} <span aria-hidden>·</span> {item.workMode}
+                    </p>
+                    <p className="leading-relaxed text-muted-foreground">{item.description}</p>
+                    <ul aria-label={`Stack at ${item.company}`} className="mt-4 flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-full border border-border/60 bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-foreground"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                </Reveal>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
   );
 }

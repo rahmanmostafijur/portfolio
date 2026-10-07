@@ -36,7 +36,7 @@ export function SlidingLogoMarquee({
     <ul
       aria-label={isDuplicate ? undefined : label}
       aria-hidden={isDuplicate || undefined}
-      className="flex shrink-0 items-center gap-3 pr-3"
+      className="flex shrink-0 items-center gap-6 py-1 pr-6"
     >
       {items.map((item) => (
         <li key={item.id} className={itemClassName}>
@@ -60,7 +60,7 @@ export function SlidingLogoMarquee({
 
   return (
     <div className={cn("group/marquee relative flex items-center gap-3", className)}>
-      <div className="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
+      <div className="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
         <div
           className="flex w-max animate-[marquee-x_var(--marquee-duration)_linear_infinite] group-focus-within/marquee:[animation-play-state:paused] group-hover/marquee:[animation-play-state:paused]"
           style={
@@ -80,7 +80,7 @@ export function SlidingLogoMarquee({
         onClick={() => setIsPaused((p) => !p)}
         aria-label={isPaused ? "Play tech list animation" : "Pause tech list animation"}
         aria-pressed={isPaused}
-        className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground"
+        className="glass-panel flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
       >
         {isPaused ? <Play aria-hidden className="size-4" /> : <Pause aria-hidden className="size-4" />}
       </button>

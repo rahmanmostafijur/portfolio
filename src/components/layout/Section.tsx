@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import type { SectionId } from '@/data/profile';
 import { cn } from '@/lib/utils';
 import Reveal from '@/components/ui/Reveal';
@@ -9,10 +10,20 @@ interface SectionProps {
   title?: string;
   accent?: string;
   subtitle?: string;
-  align?: 'left' | 'center';
+  align?: 'left' | 'center' | 'responsive';
+  /** Render the whole heading in the accent gradient */
+  gradientTitle?: boolean;
+  /** Optional icon shown in a tinted box before the heading */
+  icon?: LucideIcon;
   className?: string;
   children: ReactNode;
 }
+
+const alignClass = {
+  left: '',
+  center: 'mx-auto text-center',
+  responsive: 'text-center md:text-left',
+} as const;
 
 export default function Section({
   id,
@@ -20,6 +31,8 @@ export default function Section({
   accent,
   subtitle,
   align = 'left',
+  gradientTitle = false,
+  icon: Icon,
   className,
   children,
 }: SectionProps) {
@@ -29,23 +42,43 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28', className)}
+      className={cn('mx-auto w-full max-w-7xl px-6 py-24', className)}
     >
       {title && (
-        <Reveal className={cn('mb-12 max-w-2xl', align === 'center' && 'mx-auto text-center')}>
-          <h2
-            id={headingId}
-            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-          >
-            {title}
-            {accent && (
-              <>
-                {' '}
-                <span className="text-gradient">{accent}</span>
-              </>
+        <Reveal className={cn('mb-12 md:mb-16', alignClass[align])}>
+          <div className={cn(Icon && 'mb-3 flex items-center gap-4')}>
+            {Icon && (
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-md">
+                <Icon aria-hidden className="size-6" />
+              </span>
             )}
-          </h2>
-          {subtitle && <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>}
+            <h2
+              id={headingId}
+              className={cn(
+                'text-3xl font-bold tracking-tight md:text-5xl',
+                !Icon && 'mb-4',
+                gradientTitle ? 'text-gradient-primary' : 'text-foreground',
+              )}
+            >
+              {title}
+              {accent && (
+                <>
+                  {' '}
+                  <span className={gradientTitle ? undefined : 'text-gradient-primary'}>{accent}</span>
+                </>
+              )}
+            </h2>
+          </div>
+          {subtitle && (
+            <p
+              className={cn(
+                'max-w-2xl text-lg text-muted-foreground',
+                align === 'center' && 'mx-auto',
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
         </Reveal>
       )}
       {children}

@@ -1,59 +1,53 @@
 import { Mail, MapPin } from 'lucide-react';
 import { contact, headings, profile } from '@/data/profile';
-import Section from '@/components/layout/Section';
 import Reveal from '@/components/ui/Reveal';
 import ContactForm from '@/components/sections/ContactForm';
 
-const rowClass = 'flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm';
-const iconClass =
-  'flex size-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-accent-from/15 to-accent-to/15 text-accent-from';
+const iconCircle =
+  'glass-panel flex size-12 shrink-0 items-center justify-center rounded-full transition-transform group-hover:scale-110';
 
 export default function Contact() {
   return (
-    <Section id="contact">
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-16">
-        <Reveal>
-          <h2
-            id="contact-heading"
-            className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-          >
-            {headings.contact.title} <span className="text-gradient">{headings.contact.accent}</span>
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{contact.intro}</p>
+    <section id="contact" aria-labelledby="contact-heading" className="mx-auto w-full max-w-7xl px-6 py-24">
+      <Reveal>
+        <div className="glass-panel relative overflow-hidden rounded-[3rem] border-foreground/10 p-6 sm:p-8 md:p-12">
+          <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 size-96 rounded-full bg-brand/20 blur-[100px]" />
+          <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 size-96 rounded-full bg-cyan-500/10 blur-[100px]" />
 
-          <ul className="mt-8 grid gap-4">
-            <li>
-              <a
-                href={`mailto:${profile.email}`}
-                className={`${rowClass} transition-colors hover:bg-muted`}
-              >
-                <span className={iconClass}>
-                  <Mail aria-hidden className="size-5" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm text-muted-foreground">Email</span>
-                  <span className="block font-semibold break-all text-foreground">
-                    {profile.email}
+          <div className="relative z-10 flex flex-col gap-12 md:flex-row md:gap-24">
+            <div className="flex-1 space-y-8">
+              <div>
+                <h2 id="contact-heading" className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+                  {headings.contact.title} <span className="text-gradient-primary">{headings.contact.accent}</span>
+                </h2>
+                <p className="text-muted-foreground">{contact.intro}</p>
+              </div>
+
+              <ul className="space-y-6">
+                <li>
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="group flex items-center gap-4 text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <span className={iconCircle}>
+                      <Mail aria-hidden className="size-5" />
+                    </span>
+                    <span className="font-medium break-all">{profile.email}</span>
+                  </a>
+                </li>
+                <li className="group flex items-center gap-4 text-muted-foreground">
+                  <span className={iconCircle}>
+                    <MapPin aria-hidden className="size-5" />
                   </span>
-                </span>
-              </a>
-            </li>
-            <li className={rowClass}>
-              <span className={iconClass}>
-                <MapPin aria-hidden className="size-5" />
-              </span>
-              <span>
-                <span className="block text-sm text-muted-foreground">Location</span>
-                <span className="block font-semibold text-foreground">{profile.location}</span>
-              </span>
-            </li>
-          </ul>
-        </Reveal>
+                  <span className="font-medium">{profile.location}</span>
+                </li>
+              </ul>
+            </div>
 
-        <Reveal delay={0.1}>
-          <ContactForm />
-        </Reveal>
-      </div>
-    </Section>
+            <ContactForm />
+          </div>
+        </div>
+      </Reveal>
+    </section>
   );
 }

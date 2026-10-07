@@ -18,14 +18,20 @@ type Status =
   | { kind: 'mailto' }
   | { kind: 'error'; message: string; mailto: string };
 
-const FIELDS: { name: keyof ContactValues; label: string; type: string; autoComplete: string }[] = [
-  { name: 'name', label: 'Name', type: 'text', autoComplete: 'name' },
-  { name: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
-  { name: 'message', label: 'Message', type: 'textarea', autoComplete: 'off' },
+const FIELDS: {
+  name: keyof ContactValues;
+  label: string;
+  type: string;
+  autoComplete: string;
+  placeholder: string;
+}[] = [
+  { name: 'name', label: 'Your Name', type: 'text', autoComplete: 'name', placeholder: 'Your name' },
+  { name: 'email', label: 'Your Email', type: 'email', autoComplete: 'email', placeholder: 'you@example.com' },
+  { name: 'message', label: 'Message', type: 'textarea', autoComplete: 'off', placeholder: 'How can I help you?' },
 ];
 
 const inputClass =
-  'mt-2 block w-full rounded-xl border bg-background px-4 py-3 text-foreground transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:outline-none';
+  'block w-full rounded-xl border bg-foreground/5 px-4 py-3 text-base text-foreground transition-colors placeholder:text-muted-foreground/70 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:outline-none md:text-sm';
 
 function readValues(form: HTMLFormElement): ContactValues {
   const data = new FormData(form);
@@ -118,7 +124,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       noValidate
       aria-label="Contact form"
-      className="relative rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
+      className="glass-panel relative flex-1 rounded-[2rem] border-foreground/10 p-6 sm:p-8"
     >
       {/* Honeypot field, hidden from people and assistive tech */}
       <div aria-hidden className="absolute -left-[9999px] size-px overflow-hidden">
@@ -128,7 +134,7 @@ export default function ContactForm() {
         </label>
       </div>
 
-      <div className="grid gap-5">
+      <div className="space-y-5">
         {FIELDS.map((field) => {
           const error = errors[field.name];
           const errorId = `contact-${field.name}-error`;
@@ -139,15 +145,16 @@ export default function ContactForm() {
             required: true,
             'aria-invalid': error ? true : undefined,
             'aria-describedby': error ? errorId : undefined,
-            className: cn(inputClass, error ? 'border-red-600 dark:border-red-400' : 'border-zinc-500'),
+            placeholder: field.placeholder,
+            className: cn(inputClass, error ? 'border-red-600 dark:border-red-400' : 'border-foreground/40'),
           };
           return (
             <div key={field.name}>
-              <label htmlFor={shared.id} className="text-sm font-semibold text-foreground">
+              <label htmlFor={shared.id} className="mb-1.5 block text-sm font-medium text-muted-foreground">
                 {field.label}
               </label>
               {field.type === 'textarea' ? (
-                <textarea {...shared} rows={5} className={cn(shared.className, 'resize-y')} />
+                <textarea {...shared} rows={4} className={cn(shared.className, 'min-h-[120px] resize-none')} />
               ) : (
                 <input {...shared} type={field.type} />
               )}
@@ -164,14 +171,14 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 text-sm font-bold text-primary-foreground shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-shadow hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
       >
+        {isSubmitting ? 'Sending…' : 'Send Message'}
         {isSubmitting ? (
           <Loader2 aria-hidden className="size-4 animate-spin" />
         ) : (
-          <Send aria-hidden className="size-4" />
+          <Send aria-hidden className="ml-1 size-4" />
         )}
-        {isSubmitting ? 'Sending…' : 'Send message'}
       </button>
 
       <div role="status" aria-live="polite" className="mt-4 text-sm">

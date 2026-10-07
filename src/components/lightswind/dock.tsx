@@ -86,7 +86,7 @@ function DockItem({ item, mouseX, baseItemSize, magnification, distance }: DockI
         "relative inline-flex shrink-0 items-center justify-center rounded-full border shadow-sm transition-colors",
         item.current
           ? "border-transparent bg-brand-gradient text-white"
-          : "border-border bg-card text-muted-foreground hover:text-foreground",
+          : "border-foreground/10 bg-background/80 text-muted-foreground hover:text-foreground",
       )}
     >
       {item.icon}
@@ -128,7 +128,7 @@ export default function Dock({
           if (canMagnify && event.pointerType === "mouse") mouseX.set(event.clientX);
         }}
         onPointerLeave={() => mouseX.set(Number.POSITIVE_INFINITY)}
-        className="pointer-events-auto flex items-end gap-1 rounded-2xl border border-border bg-background/80 p-2 shadow-lg backdrop-blur-xl sm:gap-2"
+        className="glass-panel pointer-events-auto flex items-end gap-1 rounded-[1.75rem] p-2 shadow-xl sm:gap-2"
         style={{ height: baseItemSize + 18 }}
       >
         {items.map((item) => (

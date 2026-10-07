@@ -67,12 +67,16 @@ export const ToggleTheme = ({ className, duration = 400, ...props }: ToggleTheme
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       aria-pressed={isDark}
       className={cn(
-        'inline-flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-300 hover:bg-muted',
+        'glass-panel inline-flex size-10 items-center justify-center rounded-full text-foreground transition-transform duration-300 hover:scale-105',
         className,
       )}
       {...props}
     >
-      {isDark ? <Sun aria-hidden className="size-[18px]" /> : <Moon aria-hidden className="size-[18px]" />}
+      {isDark ? (
+        <Sun aria-hidden className="size-[18px] text-amber-300" />
+      ) : (
+        <Moon aria-hidden className="size-[18px] text-violet-600" />
+      )}
     </button>
   );
 };
