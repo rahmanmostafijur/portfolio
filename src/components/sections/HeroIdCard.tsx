@@ -16,7 +16,7 @@ export default function HeroIdCard() {
       cardClassName="w-64"
     >
       {/* Gradient header with photo */}
-      <div className="relative flex flex-col items-center bg-linear-to-br from-accent-from to-accent-to px-4 pt-5 pb-6">
+      <div className="relative flex flex-col items-center bg-brand-gradient px-4 pt-5 pb-6">
         <span aria-hidden className="absolute top-3 left-3 h-5 w-6 rounded bg-amber-300/90 shadow-sm" />
         <img
           src={profile.photo.src}

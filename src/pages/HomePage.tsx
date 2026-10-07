@@ -4,6 +4,7 @@ import About from '@/components/sections/About';
 import Services from '@/components/sections/Services';
 import Projects from '@/components/sections/Projects';
 import Career from '@/components/sections/Career';
+import Education from '@/components/sections/Education';
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Services />
       <Projects />
       <Career />
+      <Education />
     </>
   );
 }

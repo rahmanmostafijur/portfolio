@@ -28,7 +28,7 @@ export default function Navbar() {
         >
           <span
             aria-hidden
-            className="flex size-10 items-center justify-center rounded-xl bg-linear-to-br from-accent-from to-accent-to font-display text-sm font-bold text-white"
+            className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient font-display text-sm font-bold text-white"
           >
             {profile.initials}
           </span>

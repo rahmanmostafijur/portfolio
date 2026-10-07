@@ -26,7 +26,7 @@ export default function BlogPage() {
               <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div
                   aria-hidden
-                  className="flex aspect-[16/9] items-center justify-center bg-linear-to-br from-accent-from to-accent-to p-6 text-center"
+                  className="flex aspect-[16/9] items-center justify-center bg-brand-gradient p-6 text-center"
                 >
                   <span className="font-display text-xl font-bold text-white">{post.thumbLabel}</span>
                 </div>

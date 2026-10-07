@@ -33,7 +33,7 @@ function ProjectMedia({ project }: { project: Project }) {
   return (
     <div
       aria-hidden
-      className="flex size-full flex-col items-center justify-center gap-4 bg-linear-to-br from-accent-from to-accent-to p-8 text-center text-white"
+      className="flex size-full flex-col items-center justify-center gap-4 bg-brand-gradient p-8 text-center text-white"
     >
       <span className="flex size-16 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
         <Icon className="size-8" />

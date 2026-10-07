@@ -71,6 +71,11 @@
   color: transparent;
 }
 
+/* Fixed brand gradient for surfaces with white text/icons: stays >= 4.5:1 in both themes */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, #7c3aed, #2563eb);
+}
+
 /* Tech marquee: the track holds two copies of the list, so -50% loops seamlessly */
 @keyframes marquee-x {
   from {
