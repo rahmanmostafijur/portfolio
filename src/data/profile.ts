@@ -310,6 +310,8 @@ export const contact = {
 
 export const seo = {
   title: `${profile.name} — ${profile.title}`,
-  description: profile.tagline,
+  // Keep in sync with the static meta tags in index.html
+  description:
+    'Portfolio of M M Mostafijur Rahman, a Full Stack Software Engineer building production-ready web applications with Python, FastAPI, React and PostgreSQL.',
   ogImage: '/og-image.png',
 };

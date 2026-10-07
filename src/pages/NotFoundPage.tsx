@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 export default function NotFoundPage() {
+  usePageMeta({ title: 'Page not found', noIndex: true });
+
   return (
     <section
       aria-labelledby="not-found-heading"

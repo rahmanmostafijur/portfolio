@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
 import { blogPosts } from '@/data/blog';
 import Reveal from '@/components/ui/Reveal';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 const dateFormat: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
 
 export default function BlogPage() {
+  usePageMeta({
+    title: 'Blog',
+    description: "Notes on backend engineering, data pipelines and the projects I'm building.",
+    path: '/blog',
+  });
+
   return (
     <section
       aria-labelledby="blog-heading"

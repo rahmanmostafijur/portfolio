@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mostafij.vercel.app/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://mostafij.vercel.app/blog</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mostafij.vercel.app/blog/why-fastapi-is-my-default</loc>
+    <lastmod>2026-01-18</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mostafij.vercel.app/blog/multi-tenant-isolation-the-boring-way</loc>
+    <lastmod>2026-02-02</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mostafij.vercel.app/blog/what-an-air-quality-project-taught-me</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

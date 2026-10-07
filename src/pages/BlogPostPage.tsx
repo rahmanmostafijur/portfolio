@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import { getBlogPostBySlug } from '@/data/blog';
+import { getBlogPostBySlug, type BlogPost } from '@/data/blog';
 import NotFoundPage from '@/pages/NotFoundPage';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 const dateFormat: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric', year: 'numeric' };
 
@@ -9,6 +10,11 @@ export default function BlogPostPage() {
   const post = slug ? getBlogPostBySlug(slug) : undefined;
 
   if (!post) return <NotFoundPage />;
+  return <BlogPostView post={post} />;
+}
+
+function BlogPostView({ post }: { post: BlogPost }) {
+  usePageMeta({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}` });
 
   return (
     <article
