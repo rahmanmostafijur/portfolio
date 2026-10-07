@@ -119,6 +119,18 @@ export const navLinks: NavLinkItem[] = [
 
 export const blogLink: PageLinkItem = { to: '/blog', label: 'Blog' };
 
+/** Bottom dock: every home-page section, in page order (Blog is added after these) */
+export const dockLinks: NavLinkItem[] = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'services', label: 'What I Do' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'career', label: 'Career' },
+  { id: 'education', label: 'Education' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
+];
+
 export const idCardFields: IdCardField[] = [
   { label: 'Specialty', value: 'Python backend' },
   { label: 'Location', value: 'Dhaka, BD' },
