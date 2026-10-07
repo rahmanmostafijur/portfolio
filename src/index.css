@@ -1,12 +1,15 @@
 /* src/index.css */
 @import "tailwindcss";
 
+/* Class-based dark mode: `.dark` on <html>, set before paint by the inline script in index.html */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ─────────────────────────────────────────────
    THEME SCALE — single source of truth
 ───────────────────────────────────────────── */
 @theme {
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 
   --color-ink-900: #0d0d0d;
   --color-ink-800: #131313;
@@ -21,6 +24,65 @@
   --color-amber-brand: #f59e0b;
   --color-cyan-brand: #06b6d4;
   --color-violet-brand: #8b5cf6;
+}
+
+/* ─────────────────────────────────────────────
+   SEMANTIC TOKENS — light by default, flipped by `.dark`.
+   Names follow the shadcn convention the Lightswind
+   components expect (bg-background, text-muted-foreground…).
+───────────────────────────────────────────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent-from: var(--accent-from);
+  --color-accent-to: var(--accent-to);
+}
+
+:root {
+  --background: #fafafa;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --border: #e4e4e7;
+  --ring: #7c3aed;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --accent-from: #7c3aed;
+  --accent-to: #2563eb;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111114;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --ring: #a78bfa;
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --accent-from: #a78bfa;
+  --accent-to: #60a5fa;
+  color-scheme: dark;
+}
+
+/* Purple → blue gradient for key words in headings */
+@utility text-gradient {
+  background-image: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ─────────────────────────────────────────────
