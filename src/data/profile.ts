@@ -94,6 +94,21 @@ export interface SkillGroup {
   items: string[];
 }
 
+export type SkillIcon = 'python' | 'react' | 'code' | 'database' | 'container' | 'brain';
+
+export interface SkillProficiency {
+  icon: SkillIcon;
+  name: string;
+  level: number;
+}
+
+export type TraitIcon = 'puzzle' | 'layers' | 'users' | 'target' | 'message' | 'book';
+
+export interface ProfessionalTrait {
+  icon: TraitIcon;
+  label: string;
+}
+
 export const profile = {
   name: 'M M Mostafijur Rahman',
   initials: 'MR',
@@ -374,6 +389,30 @@ export const skillGroups: SkillGroup[] = [
   { category: 'DevOps / Tools', items: ['Docker', 'Postman', 'Git', 'GitHub', 'Linux'] },
   { category: 'AI / ML', items: ['PyTorch', 'Scikit-learn', 'Pandas', 'NumPy'] },
 ];
+
+/** Self-assessed proficiency (0–100) shown as bars in the Skills section */
+export const skillProficiencies: SkillProficiency[] = [
+  { icon: 'python', name: 'Python / FastAPI', level: 90 },
+  { icon: 'react', name: 'React.js / Next.js', level: 85 },
+  { icon: 'code', name: 'TypeScript & JavaScript', level: 85 },
+  { icon: 'database', name: 'Database (PostgreSQL / SQL)', level: 85 },
+  { icon: 'container', name: 'Docker / Git / Linux', level: 80 },
+  { icon: 'brain', name: 'Machine Learning (PyTorch / Scikit-learn)', level: 75 },
+];
+
+export const professionalTraits: ProfessionalTrait[] = [
+  { icon: 'puzzle', label: 'Problem Solving' },
+  { icon: 'layers', label: 'Clean Architecture' },
+  { icon: 'users', label: 'Team Collaboration' },
+  { icon: 'target', label: 'Ownership' },
+  { icon: 'message', label: 'Clear Communication' },
+  { icon: 'book', label: 'Continuous Learning' },
+];
+
+export const learnerNote = {
+  title: 'Constant Learner',
+  text: 'Pursuing an M.Sc in CSE (Data Science) and bringing applied machine learning into production web systems.',
+};
 
 export const contact = {
   intro:
