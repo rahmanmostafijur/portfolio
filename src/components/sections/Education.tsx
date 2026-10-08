@@ -12,6 +12,7 @@ import { education, headings } from '@/data/profile';
 import { cn } from '@/lib/utils';
 import Section from '@/components/layout/Section';
 import Reveal from '@/components/ui/Reveal';
+import SpotlightCard from '@/components/ui/SpotlightCard';
 
 const degreeIcons: LucideIcon[] = [GraduationCap, BookOpen, School];
 
@@ -30,9 +31,9 @@ export default function Education() {
           return (
             <li key={item.degree}>
               <Reveal delay={i * 0.08} className="h-full">
-                <article className="group h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+                <SpotlightCard className="h-full rounded-[2rem] border border-border/80 bg-card/80 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
                   <div className="mb-6 flex items-start justify-between gap-4">
-                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-sm">
+                    <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-primary shadow-sm">
                       <Icon aria-hidden className="size-7" />
                     </span>
                     {item.highlight && (
@@ -57,7 +58,7 @@ export default function Education() {
                       {item.institution}
                     </span>
                     <span aria-hidden>•</span>
-                    <span className="flex items-center gap-1.5 font-mono font-bold text-primary">
+                    <span className="flex items-center gap-1.5 font-bold text-foreground">
                       <Calendar aria-hidden className="size-3.5" />
                       {item.years}
                     </span>
@@ -71,7 +72,7 @@ export default function Education() {
                       </li>
                     ))}
                   </ul>
-                </article>
+                </SpotlightCard>
               </Reveal>
             </li>
           );
