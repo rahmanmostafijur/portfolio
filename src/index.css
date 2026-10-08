@@ -196,6 +196,12 @@
   }
 }
 
+/* CustomCursor.tsx draws the pointer; text fields keep the caret so typing position stays clear */
+.has-custom-cursor,
+.has-custom-cursor *:not(input, textarea, [contenteditable='true']) {
+  cursor: none !important;
+}
+
 /* Theme toggle: let ToggleTheme's circle-spread replace the default cross-fade */
 ::view-transition-old(root),
 ::view-transition-new(root) {

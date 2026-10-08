@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollManager from '@/components/layout/ScrollManager';
+import CustomCursor from '@/components/layout/CustomCursor';
 import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
 import HomePage from '@/pages/HomePage';
@@ -48,6 +49,7 @@ export default function App() {
       <Suspense fallback={null}>
         <DockNav />
       </Suspense>
+      <CustomCursor />
     </>
   );
 }
