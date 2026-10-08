@@ -91,7 +91,7 @@ export default function Footer() {
         </div>
 
         <div className="my-2 flex flex-col items-center justify-center rounded-3xl border border-black/5 bg-black/[0.015] px-6 py-12 text-center shadow-sm dark:border-white/10 dark:bg-white/[0.02]">
-          <span className="mb-3 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-extrabold tracking-widest text-primary uppercase shadow-sm">
+          <span className="mb-3 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-extrabold tracking-widest text-primary uppercase shadow-sm">
             {profile.availability}
           </span>
           <RotatingWords />

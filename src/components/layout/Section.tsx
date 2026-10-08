@@ -48,7 +48,7 @@ export default function Section({
         <Reveal className={cn('mb-12 md:mb-16', alignClass[align])}>
           <div className={cn(Icon && 'mb-3 flex items-center gap-4')}>
             {Icon && (
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary shadow-md">
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-primary shadow-md">
                 <Icon aria-hidden className="size-6" />
               </span>
             )}

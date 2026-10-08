@@ -44,7 +44,7 @@ export default function About() {
                       aria-hidden
                       className="absolute -top-12 -right-12 size-40 bg-[radial-gradient(closest-side,rgba(139,92,246,0.18),transparent)] opacity-70 transition-opacity group-hover:opacity-100"
                     />
-                    <span className="mb-4 flex w-max rounded-xl bg-primary/10 p-3 text-primary">
+                    <span className="mb-4 flex w-max rounded-xl p-3 text-primary">
                       <Icon aria-hidden className="size-6" />
                     </span>
                     <p className="mb-1 text-xl leading-snug font-bold text-foreground">{fact.value}</p>

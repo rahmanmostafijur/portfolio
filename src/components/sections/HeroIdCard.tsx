@@ -41,7 +41,7 @@ export default function HeroIdCard() {
         <div className="flex flex-1 flex-col items-center gap-3 bg-card p-5 text-center">
           <div>
             <p className="text-xl font-extrabold tracking-tight text-foreground">{profile.name}</p>
-            <p className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-0.5 text-xs font-semibold text-primary">
+            <p className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-foreground bg-card px-3 py-0.5 text-xs font-bold text-primary">
               {profile.shortTitle}
             </p>
           </div>
