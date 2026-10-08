@@ -3,6 +3,7 @@ import { profile } from '@/data/profile';
 export interface ContactValues {
   name: string;
   email: string;
+  subject: string;
   message: string;
 }
 
@@ -10,7 +11,7 @@ export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_MESSAGE_LENGTH = 10;
-const MAX_FIELD_LENGTH = { name: 100, email: 254, message: 5000 } as const;
+const MAX_FIELD_LENGTH = { name: 100, email: 254, subject: 150, message: 5000 } as const;
 const CONTACT_ENDPOINT = '/api/contact';
 const REQUEST_TIMEOUT_MS = 15000;
 
@@ -18,6 +19,7 @@ export function validateContact(values: ContactValues): ContactErrors {
   const errors: ContactErrors = {};
   const name = values.name.trim();
   const email = values.email.trim();
+  const subject = values.subject.trim();
   const message = values.message.trim();
 
   if (!name) errors.name = 'Please enter your name.';
@@ -26,6 +28,9 @@ export function validateContact(values: ContactValues): ContactErrors {
   if (!email) errors.email = 'Please enter your email address.';
   else if (!EMAIL_PATTERN.test(email) || email.length > MAX_FIELD_LENGTH.email)
     errors.email = 'Please enter a valid email address, like name@example.com.';
+
+  if (!subject) errors.subject = 'Please enter a subject.';
+  else if (subject.length > MAX_FIELD_LENGTH.subject) errors.subject = 'Please keep the subject under 150 characters.';
 
   if (message.length < MIN_MESSAGE_LENGTH)
     errors.message = `Please write at least ${MIN_MESSAGE_LENGTH} characters.`;
@@ -37,7 +42,7 @@ export function validateContact(values: ContactValues): ContactErrors {
 
 /** Pre-filled mailto link: the fallback when sending fails. */
 export function buildMailtoLink(values: ContactValues): string {
-  const subject = `Portfolio message from ${values.name.trim()}`;
+  const subject = values.subject.trim();
   const body = `${values.message.trim()}\n\n— ${values.name.trim()} (${values.email.trim()})`;
   return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -54,6 +59,7 @@ export async function sendContactMessage(values: ContactValues): Promise<void> {
       body: JSON.stringify({
         name: values.name.trim(),
         email: values.email.trim(),
+        subject: values.subject.trim(),
         message: values.message.trim(),
       }),
       signal: controller.signal,

@@ -6,13 +6,14 @@ import nodemailer from 'nodemailer';
 interface ContactPayload {
   name: string;
   email: string;
+  subject: string;
   message: string;
   company: string;
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_MESSAGE_LENGTH = 10;
-const MAX_FIELD_LENGTH = { name: 100, email: 254, message: 5000 } as const;
+const MAX_FIELD_LENGTH = { name: 100, email: 254, subject: 150, message: 5000 } as const;
 const MAX_BODY_BYTES = 16_000;
 const DEFAULT_SMTP_PORT = 465;
 
@@ -33,6 +34,8 @@ function parsePayload(raw: unknown): ContactPayload | null {
     // Name goes into mail headers, so collapse any line breaks
     name: readString(source, 'name').replace(/[\r\n]+/g, ' '),
     email: readString(source, 'email'),
+    // Subject is a mail header too
+    subject: readString(source, 'subject').replace(/[\r\n]+/g, ' '),
     message: readString(source, 'message'),
     company: readString(source, 'company'),
   };
@@ -42,6 +45,8 @@ function parsePayload(raw: unknown): ContactPayload | null {
     payload.name.length <= MAX_FIELD_LENGTH.name &&
     EMAIL_PATTERN.test(payload.email) &&
     payload.email.length <= MAX_FIELD_LENGTH.email &&
+    payload.subject.length > 0 &&
+    payload.subject.length <= MAX_FIELD_LENGTH.subject &&
     payload.message.length >= MIN_MESSAGE_LENGTH &&
     payload.message.length <= MAX_FIELD_LENGTH.message;
 
@@ -86,7 +91,7 @@ export async function POST(request: Request): Promise<Response> {
       from: { name: `${payload.name} via portfolio`, address: config.from },
       to: config.to,
       replyTo: { name: payload.name, address: payload.email },
-      subject: `Portfolio message from ${payload.name}`,
+      subject: `[Portfolio] ${payload.subject}`,
       text: `${payload.message}\n\n— ${payload.name} (${payload.email})`,
     });
     return json(200, { success: true });

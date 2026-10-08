@@ -24,6 +24,7 @@ const FIELDS: {
 }[] = [
   { name: 'name', label: 'Your Name', type: 'text', autoComplete: 'name', placeholder: 'Your name' },
   { name: 'email', label: 'Your Email', type: 'email', autoComplete: 'email', placeholder: 'you@example.com' },
+  { name: 'subject', label: 'Subject', type: 'text', autoComplete: 'off', placeholder: 'What is this about?' },
   { name: 'message', label: 'Message', type: 'textarea', autoComplete: 'off', placeholder: 'How can I help you?' },
 ];
 
@@ -33,7 +34,7 @@ const inputClass =
 function readValues(form: HTMLFormElement): ContactValues {
   const data = new FormData(form);
   const read = (key: string) => String(data.get(key) ?? '');
-  return { name: read('name'), email: read('email'), message: read('message') };
+  return { name: read('name'), email: read('email'), subject: read('subject'), message: read('message') };
 }
 
 function StatusMessage({ status }: { status: Status }) {
