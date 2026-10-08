@@ -4,6 +4,8 @@ import { Menu, X } from 'lucide-react';
 import { blogLink, navLinks, profile, type SectionId } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useScrolledPast } from '@/hooks/useScrolledPast';
 import { ToggleTheme } from '@/components/lightswind/toggle-theme';
 import LogoBadge from '@/components/ui/LogoBadge';
 import { cn } from '@/lib/utils';
@@ -11,6 +13,9 @@ import { cn } from '@/lib/utils';
 const sectionIds = navLinks.map((link) => link.id);
 
 const linkClass = 'transition-colors hover:text-foreground';
+
+// Past this offset the bar slides away on md+ screens, where the dock takes over navigation
+const HIDE_AFTER_PX = 80;
 
 function ActiveBar({ isActive }: { isActive: boolean }) {
   return (
@@ -29,6 +34,12 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const activeSection = useActiveSection(sectionIds, pathname === '/');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isScrolled = useScrolledPast(HIDE_AFTER_PX);
+  const isDockScreen = useMediaQuery('(min-width: 768px)');
+  const isHidden = isScrolled && isDockScreen;
+
+  // A hidden bar must not keep its menu open
+  if (isHidden && isMenuOpen) setIsMenuOpen(false);
 
   // Close the mobile menu with Escape
   useEffect(() => {
@@ -49,7 +60,13 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-6 z-50 flex justify-center px-4">
+    <header
+      inert={isHidden}
+      className={cn(
+        'fixed inset-x-0 top-6 z-50 flex justify-center px-4 transition-all duration-300 ease-out',
+        isHidden && 'pointer-events-none -translate-y-[calc(100%+1.5rem)] opacity-0',
+      )}
+    >
       <div className="glass-panel glass-blur w-full max-w-7xl rounded-[2rem] shadow-xl">
         <nav aria-label="Primary" className="flex items-center justify-between gap-4 px-6 py-4">
           <a

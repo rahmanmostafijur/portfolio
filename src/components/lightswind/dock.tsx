@@ -32,6 +32,8 @@ interface DockProps {
   magnification?: number;
   /** Distance in px over which magnification spreads to neighbours */
   distance?: number;
+  /** Slide the dock out of view and take it out of the tab order */
+  isHidden?: boolean;
 }
 
 function useDockItemSize(
@@ -113,6 +115,7 @@ export default function Dock({
   baseItemSize = 44,
   magnification = 60,
   distance = 140,
+  isHidden = false,
 }: DockProps) {
   const mouseX = useMotionValue(Number.POSITIVE_INFINITY);
   const reduceMotion = useReducedMotion();
@@ -121,14 +124,19 @@ export default function Dock({
   return (
     <nav
       aria-label={label}
-      className={cn("pointer-events-none fixed inset-x-0 bottom-3 z-40 flex justify-center px-2", className)}
+      inert={isHidden}
+      className={cn(
+        "pointer-events-none fixed inset-x-0 bottom-3 z-40 flex justify-center px-2 transition-all duration-300 ease-out",
+        isHidden && "translate-y-[150%] opacity-0",
+        className,
+      )}
     >
       <ul
         onPointerMove={(event) => {
           if (canMagnify && event.pointerType === "mouse") mouseX.set(event.clientX);
         }}
         onPointerLeave={() => mouseX.set(Number.POSITIVE_INFINITY)}
-        className="glass-panel glass-blur pointer-events-auto flex items-end gap-1 rounded-[1.75rem] p-2 shadow-xl sm:gap-2"
+        className={cn("glass-panel glass-blur flex items-end gap-1 rounded-[1.75rem] p-2 shadow-xl sm:gap-2", !isHidden && "pointer-events-auto")}
         style={{ height: baseItemSize + 18 }}
       >
         {items.map((item) => (

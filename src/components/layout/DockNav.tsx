@@ -16,6 +16,7 @@ import { blogLink, dockLinks, type SectionId } from '@/data/profile';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useScrolledPast } from '@/hooks/useScrolledPast';
 import Dock, { type DockItemData } from '@/components/lightswind/dock';
 
 const sectionIcons: Record<SectionId, LucideIcon> = {
@@ -31,6 +32,9 @@ const sectionIcons: Record<SectionId, LucideIcon> = {
 
 const sectionIds = dockLinks.map((link) => link.id);
 
+// The dock replaces the navbar once the visitor scrolls past the top of the hero
+const SHOW_AFTER_PX = 400;
+
 export default function DockNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -38,8 +42,9 @@ export default function DockNav() {
   const isHome = pathname === '/';
   const isBlog = pathname.startsWith(blogLink.to);
   const activeSection = useActiveSection(sectionIds, isHome);
-  const isWide = useMediaQuery('(min-width: 640px)');
-  const iconClass = isWide ? 'size-5' : 'size-4';
+  // Phones keep the navbar and its menu instead
+  const isDockScreen = useMediaQuery('(min-width: 768px)');
+  const isScrolled = useScrolledPast(SHOW_AFTER_PX);
 
   const items = useMemo<DockItemData[]>(() => {
     const sections = dockLinks.map((link): DockItemData => {
@@ -48,7 +53,7 @@ export default function DockNav() {
         id: link.id,
         label: link.label,
         href: `/#${link.id}`,
-        icon: <Icon aria-hidden className={iconClass} />,
+        icon: <Icon aria-hidden className="size-5" />,
         onSelect: () => goToSection(link.id),
         current: activeSection === link.id ? 'location' : undefined,
       };
@@ -60,12 +65,14 @@ export default function DockNav() {
         id: 'blog',
         label: blogLink.label,
         href: blogLink.to,
-        icon: <BookOpen aria-hidden className={iconClass} />,
+        icon: <BookOpen aria-hidden className="size-5" />,
         onSelect: () => navigate(blogLink.to),
         current: isBlog ? 'page' : undefined,
       },
     ];
-  }, [activeSection, goToSection, iconClass, isBlog, navigate]);
+  }, [activeSection, goToSection, isBlog, navigate]);
 
-  return <Dock items={items} label="Section dock" baseItemSize={isWide ? 44 : 32} />;
+  if (!isDockScreen) return null;
+
+  return <Dock items={items} label="Section dock" isHidden={!isScrolled} />;
 }

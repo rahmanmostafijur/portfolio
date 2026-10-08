@@ -7,8 +7,7 @@
     <meta name="description" content="Portfolio of M M Mostafijur Rahman, a Full Stack Software Engineer building production-ready web applications with Python, FastAPI, React and PostgreSQL." />
     <meta name="author" content="M M Mostafijur Rahman" />
     <link rel="canonical" href="https://mostafij.vercel.app/" />
-    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" />
 
     <link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -48,13 +47,12 @@
     </script>
 
     <script>
-      // Apply the saved theme (or the OS preference on a first visit) before first paint.
+      // Apply the saved theme before first paint. First visits start light, whatever the OS prefers.
       // Storage key must match THEME_STORAGE_KEY in src/lib/theme.ts
       (function () {
         try {
           var saved = localStorage.getItem('theme-v2');
-          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.classList.toggle('dark', dark);
+          document.documentElement.classList.toggle('dark', saved === 'dark');
         } catch (e) {}
       })();
     </script>
